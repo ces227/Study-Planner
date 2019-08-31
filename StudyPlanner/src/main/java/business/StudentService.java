@@ -19,5 +19,5 @@ public interface StudentService {
 	int updateConfirm(StudentVO vo);
 
 	StudentVO selectSeq(StudentVO vo);
-
+ 
 }
