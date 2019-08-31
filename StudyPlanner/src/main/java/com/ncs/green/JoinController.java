@@ -33,7 +33,7 @@ public class JoinController {
 		mv.setViewName("login/termsDetail");
 		return mv;
 	} //termsDetail
-	//sdaflkadfslkjhgfkjhgfsdkj
+	
 	@RequestMapping(value="/joinf")
 	public ModelAndView joinf(ModelAndView mv) {
 		mv.setViewName("login/join");
@@ -43,17 +43,17 @@ public class JoinController {
 	@Autowired
 	private UserMailSendService mailsender;
 
-	@RequestMapping(value="/studentInsert") //�쉶�썝 媛��엯
+	@RequestMapping(value="/studentInsert") //회원 가입
 	public ModelAndView studentInsert(ModelAndView mv, StudentVO vo,HttpServletRequest request) {
 		
-		int cnt=service.insert(vo);                //DB�뿉 insert�븯湲�
-		vo.setSeq(service.selectSeq(vo).getSeq()); //DB�뿉�꽌 seq媛믪쓣 留뚮뱾�뼱以ш린 �븣臾몄뿉 java�뿉�꽌 seq媛믪쓣 �븣�닔 �엳�룄濡� set�빐以��떎
+		int cnt=service.insert(vo);                //DB에 insert하기
+		vo.setSeq(service.selectSeq(vo).getSeq()); //DB에서 seq값을 만들어줬기 때문에 java에서 seq값을 알수 있도록 set해준다
 		if(cnt>0) {
-			mailsender.mailSendWithUserKey(vo.getId(),vo.getName(), vo.getSeq(),request);  //id,name,seq瑜� �꽆寃⑥��떎
-			System.out.println("**********媛��엯�꽦怨�**********");
+			mailsender.mailSendWithUserKey(vo.getId(),vo.getName(), vo.getSeq(),request);  //id,name,seq를 넘겨준다
+			System.out.println("**********가입성공**********");
 			mv.setViewName("login/loginSuccess");
 		}else {
-			System.out.println("**********媛��엯 �떎�뙣**********");
+			System.out.println("**********가입 실패**********");
 			mv.setViewName("login/loginFail");
 		}
 		return mv;
@@ -73,15 +73,15 @@ public class JoinController {
 	
 	@RequestMapping(value="/idcheck")
 	public ModelAndView idcheck(ModelAndView mv, StudentVO vo) {
-		// DB �솗�씤
+		// DB 확인
 		mv.addObject("id",vo.getId()) ;
 		vo=service.selectOne(vo);
-		if (vo!=null) { // �궗�슜 遺덇��뒫
+		if (vo!=null) { // 사용 불가능
 			mv.addObject("idCheck","F");
-		}else { // �궗�슜媛��뒫
+		}else { // 사용가능
 			mv.addObject("idCheck","T");
 		}
-		// 寃곌낵 異쒕젰
+		// 결과 출력
 		mv.setViewName("login/idCheck");
 		return mv;
 	} // idcheck
