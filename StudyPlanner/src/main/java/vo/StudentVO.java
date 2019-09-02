@@ -1,13 +1,13 @@
 package vo;
 
 public class StudentVO {
-	private int seq;			//���̺� ���� ���� primarykey
-	private String id;			//����� id
-	private String password;	//����� ��й�ȣ
-	private String name;		//����� �̸�
-	private String lev;			//����� ���� ��ġ(�߰��,���л�,���û�)
+	private int seq;			//占쏙옙占싱븝옙 占쏙옙占쏙옙 占쏙옙占쏙옙 primarykey
+	private String id;			//占쏙옙占쏙옙占� id
+	private String password;	//占쏙옙占쏙옙占� 占쏙옙橘占싫�
+	private String name;		//占쏙옙占쏙옙占� 占싱몌옙
+	private String lev;			//占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙치(占쌩곤옙占�,占쏙옙占싻삼옙,占쏙옙占시삼옙)
 	
-	
+	//수정!
 	public int getSeq() {
 		return seq;
 	}

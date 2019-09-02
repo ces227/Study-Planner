@@ -11,7 +11,7 @@
 </head>
 <body>
 <h3>회원 상세 정보</h3>
-
+<!-- 테스트용 수정하기 -->
 <form action="studentUpdate" method="post">
 <table>
 
