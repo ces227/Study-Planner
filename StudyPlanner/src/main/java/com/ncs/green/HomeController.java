@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import business.StudentService;
 import vo.StudentVO;
 
-
+//홈컨트롤러...아이언맨 죽음
 @Controller
 public class HomeController {
 	
@@ -57,14 +57,14 @@ public class HomeController {
 			if (id != null) {
 				mv.addObject("student", vo);
 			} else
-				System.out.println("**** loginID 값 null ****");
+				System.out.println("**** loginID 媛� null ****");
 		} else
-			System.out.println("**** session 값 null ****");
+			System.out.println("**** session 媛� null ****");
 		
 		if (vo != null && id != null) {
 			mv.setViewName("login/detailView");
 		} else { 
-			mv.setViewName("login/loginFail"); //@@@@@여기 수정해주기 @@@@@
+			mv.setViewName("login/loginFail"); //@@@@@�뿬湲� �닔�젙�빐二쇨린 @@@@@
 		}
 		return mv; 
 	}
@@ -74,11 +74,11 @@ public class HomeController {
 		
 		int cnt =  service.update(vo);
 		if (cnt > 0) {
-			// 수정성공
-			mv.setViewName("login/loginSuccess"); //@@@@@여기 수정해주기 @@@@@
+			// �닔�젙�꽦怨�
+			mv.setViewName("login/loginSuccess"); //@@@@@�뿬湲� �닔�젙�빐二쇨린 @@@@@
 		} else {
-			// 수정실패
-			mv.setViewName("login/loginfail"); //@@@@@여기 수정해주기 @@@@@
+			// �닔�젙�떎�뙣
+			mv.setViewName("login/loginfail"); //@@@@@�뿬湲� �닔�젙�빐二쇨린 @@@@@
 		} 
 		return mv;
 	} // studentUpdate
