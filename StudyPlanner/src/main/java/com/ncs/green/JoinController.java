@@ -86,3 +86,6 @@ public class JoinController {
 		return mv;
 	} // idcheck
 }
+
+
+//학원 Test용 주석
