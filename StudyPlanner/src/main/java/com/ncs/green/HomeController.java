@@ -30,7 +30,7 @@ public class HomeController {
 	@Qualifier("student")
 	private StudentService service;
 	
-	
+	//테스트용 주석
 	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);

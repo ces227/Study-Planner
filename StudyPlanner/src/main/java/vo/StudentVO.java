@@ -44,3 +44,6 @@ public class StudentVO {
 				+ ", lev=" + lev + "]";
 	}
 }
+
+
+// 테스트@@
