@@ -7,7 +7,7 @@ public class StudentVO {
 	private String name;		//占쏙옙占쏙옙占� 占싱몌옙
 	private String lev;			//占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙치(占쌩곤옙占�,占쏙옙占싻삼옙,占쏙옙占시삼옙)
 	
-	//수정
+	//수정!
 	public int getSeq() {
 		return seq;
 	}
