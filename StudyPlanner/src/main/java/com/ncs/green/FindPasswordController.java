@@ -17,7 +17,7 @@ import business.StudentService;
 import vo.StudentVO;
 
 @Controller
-public class JoinController {
+public class FindPasswordController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
