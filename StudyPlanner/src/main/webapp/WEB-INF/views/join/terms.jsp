@@ -7,6 +7,11 @@
 <title>회원가입</title>
 </head>
 <body>
+<header>
+<div>
+	<iframe id=header src="index" width='100%' height="60" frameborder="0"></iframe>
+</div>
+</header>
 <h3 align="center">회원가입</h3>
 <hr style="border-style:dotted">
 <div align="center">

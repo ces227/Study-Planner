@@ -61,7 +61,13 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "loginForm";
-	}	
+	}
+	
+	@RequestMapping(value = "/index")
+	public ModelAndView index(ModelAndView mv) {
+		mv.setViewName("indexMenu");
+		return mv;
+	}
 
 
 	

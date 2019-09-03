@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>** Login Form **</title>
 <style type="text/css">
-    @import url("css/login.css");
+    @import url("csslib/login.css");
 </style>
 <script src="resources/jsLib/jquery-3.2.1.min.js"></script>
 <script src="resources/jsLib/login.js"></script>
@@ -48,7 +48,7 @@
 								</div>
 							
 							<input type="submit" name="submit" disabled="disabled" id='loginDisabled' class="btn btn-info btn-md" value="로그인">
-							<input type="button" name="joinf" class="btn btn-info btn-md" id='join' value="회원가입">
+							<input type="button" class="btn btn-info btn-md" onclick="location.href='termsf'" value="회원가입">
 							<div id="register-link" class="text-right">
 								<a href="find_pw_form" class="text-info" id="find_pw_btn">비밀번호 찾기</a>
 							</div>
