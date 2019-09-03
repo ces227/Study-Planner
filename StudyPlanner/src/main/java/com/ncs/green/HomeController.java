@@ -61,46 +61,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "loginForm";
-	}
-	//--------------------------------------------------------┘
-	
-	@RequestMapping(value="/studentDetail")
-	public ModelAndView studentDetail(HttpServletRequest request,
-			ModelAndView mv, StudentVO vo) {
-		
-		String id = null;
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			id = (String) session.getAttribute("id");
-			if (id != null) {
-				mv.addObject("student", vo);
-			} else
-				System.out.println("**** loginID 媛� null ****");
-		} else
-			System.out.println("**** session 媛� null ****");
-		
-		if (vo != null && id != null) {
-			mv.setViewName("login/detailView");
-		} else { 
-			mv.setViewName("login/loginFail"); //@@@@@�뿬湲� �닔�젙�빐二쇨린 @@@@@
-		}
-		return mv; 
-	}
-	
-	@RequestMapping(value="/studentUpdate")
-	public ModelAndView mupdate(ModelAndView mv, StudentVO vo) {
-		
-		int cnt =  service.update(vo);
-		if (cnt > 0) {
-			// �닔�젙�꽦怨�
-			mv.setViewName("login/loginSuccess"); //@@@@@�뿬湲� �닔�젙�빐二쇨린 @@@@@
-		} else {
-			// �닔�젙�떎�뙣
-			mv.setViewName("login/loginfail"); //@@@@@�뿬湲� �닔�젙�빐二쇨린 @@@@@
-		} 
-		return mv;
-	} // studentUpdate
-	
+	}	
 
 
 	

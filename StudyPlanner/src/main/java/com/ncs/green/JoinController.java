@@ -24,19 +24,19 @@ public class JoinController {
 	
 	@RequestMapping(value="/termsf")
 	public ModelAndView termsf(ModelAndView mv) {
-		mv.setViewName("login/terms");
+		mv.setViewName("join/terms");
 		return mv;
 	} //termsf
 
 	@RequestMapping(value="/termsDetail")
 	public ModelAndView termsDetail(ModelAndView mv) {
-		mv.setViewName("login/termsDetail");
+		mv.setViewName("join/termsDetail");
 		return mv;
 	} //termsDetail
 	
 	@RequestMapping(value="/joinf")
 	public ModelAndView joinf(ModelAndView mv) {
-		mv.setViewName("login/join");
+		mv.setViewName("join/join");
 		return mv;
 	} //joinf
 	
@@ -51,22 +51,22 @@ public class JoinController {
 		if(cnt>0) {
 			mailsender.mailSendWithUserKey(vo.getId(),vo.getName(), vo.getSeq(),request);  //id,name,seq를 넘겨준다
 			System.out.println("**********가입성공**********");
-			mv.setViewName("login/loginSuccess");
+			mv.setViewName("join/joinSuccess");
 		}else {
 			System.out.println("**********가입 실패**********");
-			mv.setViewName("login/loginFail");
+			mv.setViewName("join/joinFail");
 		}
 		return mv;
 	} //studentInsert
 	
-	@RequestMapping(value="/joinSuccess")
+	@RequestMapping(value="/emailJoinSuccess") //회원이 이메일 인증하기 버튼 클릭시
 	public ModelAndView joinSucess(ModelAndView mv,StudentVO vo) {
 		
 		int cnt = service.updateConfirm(vo);
 		if(cnt>0) {
-			mv.setViewName("login/joinSuccess");			
+			mv.setViewName("join/ejoinSuccess");			
 		} else {
-			mv.setViewName("login/loginFail");
+			mv.setViewName("join/ejoinFail");
 		}
 		return mv;
 	} //joinSucess
@@ -82,7 +82,7 @@ public class JoinController {
 			mv.addObject("idCheck","T");
 		}
 		// 결과 출력
-		mv.setViewName("login/idCheck");
+		mv.setViewName("join/idCheck");
 		return mv;
 	} // idcheck
 }

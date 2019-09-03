@@ -44,6 +44,3 @@ public class StudentVO {
 				+ ", lev=" + lev + "]";
 	}
 }
-
-
-// 테스트@@ 시ㅣ발 나만안됨ㄴㅇ

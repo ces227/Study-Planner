@@ -34,4 +34,27 @@
 	DELETE student WHERE id=#{id}
 </delete>
 
+<!-- [2nd row:left] 내용 추가-->
+<!-- 로그인 -->
+<select id="loginCheck" resultType="vo.StudentVO" >
+	SELECT * FROM student WHERE id=#{id} AND password=#{password}
+</select>
+
+<!-- 비밀번호 변경화면에서 사용하는 mapper -->
+<!-- 비밀번호를 찾을 아이디 검색 -->
+<select id="selectPassword" resultType="vo.StudentVO">
+	SELECT id FROM student WHERE id=#{id}
+</select>
+
+<!-- 임시비밀번호로 비번을 변경시켜주고 메시지 발송 -->
+<update id="updateTemPassword" parameterType="vo.StudentVO">
+	 update student set password=(SELECT DBMS_RANDOM.STRING('P', 10) STR FROM DUAL) where id=#{id}
+</update>
+
+<!-- 임시비밀번호가 정말로 변경되었는지 확인 -->
+<!-- selectAfterPW -->
+<select id="selectAfterPW" resultType="vo.StudentVO">
+	SELECT password FROM student WHERE id=#{id}
+</select>
+
 </mapper>

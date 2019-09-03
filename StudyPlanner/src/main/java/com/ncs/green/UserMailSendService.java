@@ -26,7 +26,7 @@ public class UserMailSendService {
 				+ "<h3>" + name + "님</h3>" 
 				+ "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
 				+ "<a href='http://localhost:9090" + request.getContextPath() // request.getContextPath() 값이 green(우리 주소)임
-				+ "/joinSuccess?id="+ id +"&seq="+seq //id랑 seq값 넘겨주기
+				+ "/emailJoinSuccess?id="+ id +"&seq="+seq //id랑 seq값 넘겨주기
 				+"'>인증하기</a></p>"
 				+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";  //여기가 내용(html처럼 써야함)
 		try {

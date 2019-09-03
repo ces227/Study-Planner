@@ -38,10 +38,10 @@ public class LoginController {
 		vo = service.loginCheck(vo);
 
 		if (vo != null) {
-			session.setAttribute("loginID", vo.getId());
-			mv.setViewName("login/ok"); // 로그인 성공시 화면이동
+			session.setAttribute("id", vo.getId());
+			mv.setViewName("login/loginSuccess"); // 로그인 성공시 화면이동
 		} else {
-			mv.setViewName("login/no"); // 로그인 실패
+			mv.setViewName("login/loginFail"); // 로그인 실패
 		}
 		return mv;
 	} // login

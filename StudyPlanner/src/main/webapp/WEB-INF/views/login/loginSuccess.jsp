@@ -2,19 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>인증메일 발송!</title>
+<meta charset="UTF-8">
+<title>** Login Form **</title>
+<script src="resources/jsLib/jquery-3.2.1.min.js"></script>
+<script src="resources/jsLib/axTest.js"></script>
+<script src="resources/jsLib/jsTest3.js"></script>
 </head>
 <body>
-<h1>
-	인증메일 발송!  
-</h1>
-<pre>
-회원인증 이메일이 발송되었습니다!이메일을 확인해주세요
-<a href="www.naver.com" target="_blank">네이버</a>
-<a href="www.google.com" target="_blank">구글</a>
-<a href="www.daum.net" target="_blank">한메일(다음)</a>
-</pre>
+	<h2>로그인 성공</h2>
+	
+	</table>
+	<a href="loginf">[로그인하러가기]</a>
+	<a href="studentDetail">[회원정보 보기]</a>
 </body>
 </html>

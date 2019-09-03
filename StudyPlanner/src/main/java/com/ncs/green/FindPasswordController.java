@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import business.StudentService;
 import vo.StudentVO;
 
@@ -24,6 +25,9 @@ public class FindPasswordController {
 	@Autowired
 	@Qualifier("student")
 	private StudentService service;
+	
+	@Autowired
+	public UserMailSendService mailsender;
 
 	// 비밀번호 찾기를 진행할 메소드(비번찾기 페이지로 이동하게함...) 
 	@RequestMapping(value = "/find_pw_form")
@@ -34,6 +38,7 @@ public class FindPasswordController {
 	// 임시비번 변경하고 메일로 보내주는??? 그런 거..
 	@RequestMapping(value = "/findpassword")
 	public ModelAndView findpassword(HttpServletRequest request, ModelAndView mv, StudentVO vo) {
+		
 		System.out.println("이메일꼐정떼스뜌 " + vo); // vo값이 제대로 들어가있는지 테스트!!
 		vo = service.selectPassword(vo); // 비밀번호 찾을 계정이 student 테이블에 있는지 검색!
 
