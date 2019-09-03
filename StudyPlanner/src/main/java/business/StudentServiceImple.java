@@ -49,7 +49,25 @@ public class StudentServiceImple implements StudentService {
 		return dao.update(NS+"updateConfirm", vo);
 	}
 	
+	// 로그인 및 비번찾기 -------------------------------------┐
+	@Override // 로그인 체크
+	public StudentVO loginCheck(StudentVO vo) {
+		return dao.selectOne(NS+"loginCheck", vo);
+	}
 	
+	@Override // 패스워드 찾을 계정이 있는지 확인
+	public StudentVO selectPassword(StudentVO vo) {
+		return dao.selectOne(NS+"selectPassword",vo);
+	}
 	
+	@Override // 임시비번으로 변경해주는 ..
+	public int updateTemPassword(StudentVO vo) {
+		return dao.update(NS+"updateTemPassword", vo);
+	}
 	
+	public StudentVO selectAfterPW(StudentVO vo) {
+		// 임시비번 변경 후 메일로 발송하기전..변경된 임시비번 조회..
+		return dao.selectOne(NS+"selectAfterPW", vo);
+	}
+	//--------------------------------------------------┛
 }
