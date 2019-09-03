@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import business.StudentService;
 import vo.StudentVO;
 
-//홈컨트롤러...아이언맨 죽음
 @Controller
 public class HomeController {
 	
@@ -30,7 +29,10 @@ public class HomeController {
 	@Qualifier("student")
 	private StudentService service;
 	
-	//?
+	// [2nd row::left] :: 해당  home.jsp명을 loginForm.jsp로 대체하는거라...
+	// 아래에 있는 home 주석처리하겠습니다...
+	// 혹시 몰라서.....ㅎㅅㅎ
+	/*
 	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -44,7 +46,23 @@ public class HomeController {
 		
 		return "home";
 	}
+	*/ // home을 살리는거라면 주석을 푸시면 됩니다.
 	
+	// home.jsp 페이지가 loginForm.jsp로 변경되어 추가...---------------┐
+	@RequestMapping(value = {"/","/loginf"}, method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "loginForm";
+	}
+	//--------------------------------------------------------┘
 	
 	@RequestMapping(value="/studentDetail")
 	public ModelAndView studentDetail(HttpServletRequest request,
