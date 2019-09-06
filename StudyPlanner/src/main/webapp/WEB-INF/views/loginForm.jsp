@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** Login Form **</title>
+<title>Study Planner</title>
 <style type="text/css">
     @import url("csslib/login.css");
 </style>
@@ -17,26 +17,27 @@
 
 </head>
 <body>
+<div id="login-row" class="row justify-content-center align-items-center">
+<img src="resources/image/logo.png" height="100px" width="100px"></div>
 	<div id="login">
 		<div class="container">
 			<div id="login-row" class="row justify-content-center align-items-center">
 				<div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-					 <img src="resources/image/banana2.gif" id="logo">
 						<form id="login-form" class="form" action="login" method="post">
-							<h3 class="text-center text-info">스터디플래너</h3>
+							<h3 class="text-center text-info">Study Planner</h3>
 							<div class="form-group">
 								<!--          이메일 @도메인 처리하는 것에 대해 생각해봐야함                                     -->
 								<!--          맵퍼 +                                      -->
 								<label for="username" class="text-info">Email:</label><br>
 								<input type="text" name="id" id="id" class="form-control">
-								<tr><span id=iMessage></span></td>
+								<tr><span id=iMessage class="text-info"></span></td>
 							</div>
 							<div class="form-group">
 								<!--          비밀번호 처리하는 것에 대해 생각해봐야함                                     -->
 								<label for="password" class="text-info">Password:</label><br>
 								<input type="password" name="password" id="password" class="form-control">
-								<tr><span id=pMessage></span></td>
+								<tr><span id=pMessage class="text-info"></span></td>
 							</div>
 							<div class="form-group">
 								<label for="remember-me" class="text-info">
