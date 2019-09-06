@@ -28,7 +28,7 @@
 					<div id="login-box" class="col-md-12"><br>
 					 <p align="center"><img src="resources/image/13244.gif" id="logo1"><br></p>
 					 	<form id="login-form" class="form" action="findpassword" method="post">
-							<h3 class="text-center text-info">비밀번호 까먹어떠!!!</h3><br><br>
+							<h3 class="text-center text-info">비밀번호를 까먹었다면?</h3><br><br>
 							<div class="form-group">
 								<label for="text" class="text-info">찾을 계정의 Email을 입력하세요 :</label><br>
 								<input type="text" name="id" id="find_email" class="form-control">
@@ -38,6 +38,7 @@
 							<input type="submit" name="submit" disabled="disabled" id='find_emailDisabled' class="btn btn-info btn-md" value="임시비밀번호 전송">
 							</p>
 							</div>
+							<a href="javascript:history.go(-1)" class="text-info" id="find_pw_btn">뒤로가기</a>
 						</form>
 					</div>
 				</div>
