@@ -15,7 +15,7 @@
 	<h2>로그인 성공</h2>
 	
 	</table>
-	<a href="loginf">[로그인하러가기]</a>
+
 	<a href="studentDetail">[회원정보 보기]</a>
 </body>
 </html>
