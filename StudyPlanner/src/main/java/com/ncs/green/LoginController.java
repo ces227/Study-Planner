@@ -37,11 +37,17 @@ public class LoginController {
 
 		vo = service.loginCheck(vo);
 
-		if (vo != null) {
+		if (vo != null && vo.getSeq()==1) {              //이메일 인증 완료한 회원
 			session.setAttribute("id", vo.getId());
-			mv.setViewName("login/loginSuccess"); // 로그인 성공시 화면이동
+			mv.setViewName("indexMenu"); // 로그인 성공시 화면이동
 		} else {
-			mv.setViewName("login/loginFail"); // 로그인 실패
+			if(vo != null && vo.getSeq()>999) {           //가입은 했으나 이메일 인증 안한 회원
+				mv.addObject("Check","NoEmail");
+				mv.setViewName("login/loginFail"); // 로그인 실패
+			} else {                                      //둘다 아님 (로그인 실패)
+				mv.addObject("Check","Fail");
+				mv.setViewName("login/loginFail"); // 로그인 실패
+			}
 		}
 		return mv;
 	} // login
@@ -49,7 +55,7 @@ public class LoginController {
 	// 사이트 소개 페이지(introduce.jsp) 매핑
 	@RequestMapping(value = "/siteIntro")
 	public ModelAndView ploginf(ModelAndView mv) {
-		mv.setViewName("login/introduce");
+		mv.setViewName("introduce");
 		return mv;
 	}
 

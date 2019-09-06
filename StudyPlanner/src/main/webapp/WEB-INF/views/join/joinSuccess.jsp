@@ -3,18 +3,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <head>
 	<title>인증메일 발송!</title>
 </head>
 <body>
-<h1>
-	인증메일 발송!  
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1 class="text-center text-info">
+	인증메일이 발송되었습니다!  
 </h1>
-<pre>
-회원인증 이메일이 발송되었습니다!이메일을 확인해주세요
-<a href="www.naver.com" target="_blank">네이버</a>
-<a href="www.google.com" target="_blank">구글</a>
-<a href="www.daum.net" target="_blank">한메일(다음)</a>
-</pre>
+<h3 class="text-center text-info">회원인증 이메일이 발송되었습니다!이메일을 확인해주세요!</h3>
+
 </body>
 </html>

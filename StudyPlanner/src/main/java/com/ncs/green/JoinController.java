@@ -59,6 +59,21 @@ public class JoinController {
 		return mv;
 	} //studentInsert
 	
+	@RequestMapping(value="/reInsert") //이메일 인증 다시하기 눌렀을 경우
+	public ModelAndView reInsert(ModelAndView mv, StudentVO vo,HttpServletRequest request) {
+		
+		vo=service.selectOne(vo);                //DB에서 id값으로 회원 조회
+		if(vo!=null) {
+			mailsender.mailSendWithUserKey(vo.getId(),vo.getName(), vo.getSeq(),request);  //id,name,seq를 넘겨준다
+			System.out.println("**********이메일 재전송**********");
+			mv.setViewName("join/joinSuccess");
+		}else {
+			System.out.println("**********이메일 재전송 실패**********");
+			mv.setViewName("join/joinFail");
+		}
+		return mv;
+	} //studentInsert
+	
 	@RequestMapping(value="/emailJoinSuccess") //회원이 이메일 인증하기 버튼 클릭시
 	public ModelAndView joinSucess(ModelAndView mv,StudentVO vo) {
 		
