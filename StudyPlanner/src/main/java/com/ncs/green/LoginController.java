@@ -39,12 +39,25 @@ public class LoginController {
 
 		if (vo != null) {
 			session.setAttribute("id", vo.getId());
-			mv.setViewName("login/loginSuccess"); // 로그인 성공시 화면이동
+			mv.setViewName("login/ok"); // 로그인 성공시 화면이동
 		} else {
-			mv.setViewName("login/loginFail"); // 로그인 실패
+			mv.addObject("fail","true") ; // ☆ 0906추가내용
+			mv.setViewName("loginf"); // 로그인 실패 // 0906 수정내용
 		}
 		return mv;
 	} // login
+	
+	
+	// 0906 추가내용:: 로그아웃 기능 구현 -----------------------------------------┐
+	@RequestMapping(value="/logout")
+	public ModelAndView logout(HttpServletRequest request,
+							ModelAndView mv) {
+		request.getSession().invalidate();
+		mv.setViewName("loginForm"); // 로그아웃시 홈화면으로...
+		return mv;
+	} // logout
+	//-------------------------------------------------------------------┘
+	
 
 	// 사이트 소개 페이지(introduce.jsp) 매핑
 	@RequestMapping(value = "/siteIntro")
