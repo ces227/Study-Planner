@@ -39,7 +39,7 @@ public class LoginController {
 
 		if (vo != null) {
 			session.setAttribute("id", vo.getId());
-			mv.setViewName("login/ok"); // 로그인 성공시 화면이동
+			mv.setViewName("login/loginSuccess"); // 로그인 성공시 화면이동
 		} else {
 			mv.addObject("fail","true") ; // ☆ 0906추가내용
 			mv.setViewName("loginf"); // 로그인 실패 // 0906 수정내용

@@ -12,10 +12,13 @@
 <script src="resources/jsLib/jsTest3.js"></script>
 </head>
 <body>
-	<h2>로그인 성공</h2>
+	${id}님이 로그인했습니다. <br>
 	
 	</table>
 	<a href="loginf">[로그인하러가기]</a>
 	<a href="studentDetail">[회원정보 보기]</a>
+	
+	<br>
+	<a href="logout" id="logout" name="logout">[로그아웃]</a>
 </body>
 </html>
