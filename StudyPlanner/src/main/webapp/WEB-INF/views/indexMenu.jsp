@@ -16,8 +16,8 @@
 <div id='cssmenu'>
 <ul>
    <li class='active'><a href='#'>Home</a></li>
-   <li><a href='CalendarMain'>캘린더</a></li>
-   <li><a href='#'>그래프</a></li>
+   <li><a href='http://localhost:9090/green/CalendarMain' target="section">캘린더</a></li>
+   <li><a href='http://localhost:9090/green/GgraphMain'>그래프</a></li>
    <li><a href='http://localhost:9090/green/studentDetail' target="section">내 정보</a></li>
    <li><a href='http://www.career.go.kr/cnet/iframe/MajorDic.do?apiKey=8b3617461e2979d61e0ab5749928e610&gubun=univDic' target="section">학과 정보</a></li>
    <li><a href='http://localhost:9090/green/siteIntro' target="section">만든 사람들</a></li>

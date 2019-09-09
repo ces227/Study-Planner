@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="green.mapper.CalendarMapper">
+
+<select id="selectList" resultType="vo.GgraphVO">
+	SELECT * FROM ggraph WHERE graID=#{graID} 
+</select>
+
+<select id="selectDetail" resultType="vo.GgraphVO">
+	SELECT * FROM ggraph WHERE seq=#{seq}
+</select>
+
+<insert id="insertGgraph"> <!-- ggraph_seq의 다음 수를 seq 에 넣어준다. -->
+	INSERT INTO ggraph VALUES(ggraph_seq.NEXTVAL, #{graID}, #{exam_name}, #{exam_date}, #{exam_hour}, #{exam_subjec}, #{exam_grade})
+</insert>
+
+<update id="updateGgraph">
+	UPDATE ggraph SET exam_name=#{exam_name}, exam_date=#{exam_date}, exam_hour=#{exam_hour}, exam_subjec=#{exam_subjec} WHERE seq=#{seq}
+</update>
+
+<delete id="deleteGgraph">
+	DELETE ggraph WHERE graID=#{graID} AND seq=#{seq}
+</delete>
+
+</mapper>

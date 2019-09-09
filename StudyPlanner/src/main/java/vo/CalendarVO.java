@@ -1,6 +1,7 @@
 package vo;
 
 public class CalendarVO {
+
 	private String caid;
 	private String title;
 	private String start_date;
