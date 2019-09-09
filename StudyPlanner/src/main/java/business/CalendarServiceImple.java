@@ -18,6 +18,11 @@ public class CalendarServiceImple implements CalendarService{
 	public ArrayList<CalendarVO>selectList(CalendarVO vo){
 		return (ArrayList)dao.selectList(NS+"selectList", vo);
 	}
+	
+	@Override
+	public int listCount(CalendarVO vo) {
+		return dao.selectOne(NS+"listCount", vo);
+	}
 
 	@Override
 	public CalendarVO selectOne(CalendarVO vo) {
