@@ -32,7 +32,8 @@ public class CalendarController {
 			if(id!=null) {
 				vo.setCaid(id);
 				avo=service.selectList(vo);
-				
+				int size=service.listCount(vo);
+				mv.addObject("size",size);
 				mv.addObject("loginIDcalendar",avo);
 			}else {
 				System.out.println("***** loginID null *****");

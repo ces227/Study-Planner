@@ -5,7 +5,11 @@
 <mapper namespace="green.mapper.CalendarMapper">
 
 <select id="selectList" resultType="vo.CalendarVO">
-	SELECT * FROM calendar
+	SELECT * FROM calendar WHERE caid=#{caid}
+</select>
+
+<select id="listCount" resultType="integer">
+	SELECT COUNT(*) FROM calendar WHERE caid=#{caid}
 </select>
 
 <select id="selectDetail" resultType="vo.CalendarVO">

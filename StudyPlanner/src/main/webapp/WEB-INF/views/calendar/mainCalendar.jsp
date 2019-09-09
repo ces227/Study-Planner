@@ -15,43 +15,47 @@
 <script src='resources/jsLib/jquery.bpopup.min.js'></script>
 <script>
 $(document).ready(function() {
+	var test=[];
+	
+	for(var i=0, test=[]; i<${size}; i++){
+		test.push(
+			{title:$('#title'+i).val(),start:$('#start_date'+i).val(),end:$('#end_date'+i).val()}
+		);
+	}
 	$('#calendar').fullCalendar({
 		header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'month,basicWeek,basicDay'
+			right: 'month,agendaWeek,agendaDay,listWeek'
 		},
-		defaultDate: '2019-09-02',
+//		defaultDate: '2019-09-02',
 		navLinks: true, // can click day/week names to navigate views
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
 		locale: "ko",
 		//defaultView: "basicWeek",주간
 		defaultView: "month",//월간->디폴트값
-		//defaultView: "lisstWeek", 주간리스트
-		
-		events: [
-			{
-				title: '생일',
-				start: '2019-10-07',
-				end: '2019-10-08'
-			},
-			{	//db에 등록되었는 데이터 프론트에 표현하기
-				title: $('#title1').val(),
-				start: $('#start_date1').val(),
-				end: $('#end_date1').val()
+		//defaultView: "listWeek", 주간리스트
+		events: 
+			test
+			//{title:'국어',start:'2019-09-03 08:24:27.0',end:'2019-09-04 08:24:20.0'},{title:'수학',start:'2019-09-06 05:54:29.0',end:'2019-09-08 14:54:37.0'}
+//			{	//db에 등록되었는 데이터 프론트에 표현하기
+//				title: $('#title1').val(),
+//				start: $('#start_date1').val(),
+//				end: $('#end_date1').val()
 			
 				//url: 'CalendarMain', //컨트롤러의 값을 불러오는 메소드명
 				/* error: function(){
 					$('#script-warning').show();
 				} */
-			}, 
-			{
-				title: $('#title0').val(),
-				start: $('#start_date0').val(),
-				end: $('#end_date0').val()
-			}
-		]//,
+//			}, 
+//			{
+//				title: $('#title0').val(),
+//				start: $('#start_date0').val(),
+//				end: $('#end_date0').val()
+//			}
+		
+		//,
 		
 		//드래그 & 드롭
 /* 		eventDrop: function(event, delta, revertFunc){

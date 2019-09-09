@@ -16,4 +16,6 @@ public interface CalendarService {
 
 	int delete(CalendarVO vo);
 
+	int listCount(CalendarVO vo);
+
 }
