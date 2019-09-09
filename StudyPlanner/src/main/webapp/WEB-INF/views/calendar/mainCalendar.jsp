@@ -15,12 +15,13 @@
 <script src='resources/jsLib/jquery.bpopup.min.js'></script>
 <script>
 $(document).ready(function() {
-	for(var i=0, result=[]; i<${size}; i++){
-		result.push(
-			"{title:'"+$('#title'+i).val()+"',start:'"+$('#start_date'+i).val()+"',end:'"+$('#end_date'+i).val()+"'}"
+	var test=[];
+	
+	for(var i=0, test=[]; i<${size}; i++){
+		test.push(
+			{title:$('#title'+i).val(),start:$('#start_date'+i).val(),end:$('#end_date'+i).val()}
 		);
 	}
-	alert(result);
 	$('#calendar').fullCalendar({
 		header: {
 			left: 'prev,next today',
@@ -35,8 +36,9 @@ $(document).ready(function() {
 		//defaultView: "basicWeek",주간
 		defaultView: "month",//월간->디폴트값
 		//defaultView: "listWeek", 주간리스트
-		events: result
-//			{title:'국어',start:'2019-09-03 08:24:27.0',end:'2019-09-04 08:24:20.0'},{title:'수학',start:'2019-09-06 05:54:29.0',end:'2019-09-08 14:54:37.0'}
+		events: 
+			test
+			//{title:'국어',start:'2019-09-03 08:24:27.0',end:'2019-09-04 08:24:20.0'},{title:'수학',start:'2019-09-06 05:54:29.0',end:'2019-09-08 14:54:37.0'}
 //			{	//db에 등록되었는 데이터 프론트에 표현하기
 //				title: $('#title1').val(),
 //				start: $('#start_date1').val(),
@@ -52,6 +54,7 @@ $(document).ready(function() {
 //				start: $('#start_date0').val(),
 //				end: $('#end_date0').val()
 //			}
+		
 		//,
 		
 		//드래그 & 드롭
