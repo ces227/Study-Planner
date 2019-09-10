@@ -36,45 +36,26 @@ $(document).ready(function() {
 		//defaultView: "basicWeek",주간
 		defaultView: "month",//월간->디폴트값
 		//defaultView: "listWeek", 주간리스트
-		events: 
-			test
-			//{title:'국어',start:'2019-09-03 08:24:27.0',end:'2019-09-04 08:24:20.0'},{title:'수학',start:'2019-09-06 05:54:29.0',end:'2019-09-08 14:54:37.0'}
-//			{	//db에 등록되었는 데이터 프론트에 표현하기
-//				title: $('#title1').val(),
-//				start: $('#start_date1').val(),
-//				end: $('#end_date1').val()
-			
-				//url: 'CalendarMain', //컨트롤러의 값을 불러오는 메소드명
-				/* error: function(){
-					$('#script-warning').show();
-				} */
-//			}, 
-//			{
-//				title: $('#title0').val(),
-//				start: $('#start_date0').val(),
-//				end: $('#end_date0').val()
-//			}
-		
-		//,
+		events: test,
 		
 		//드래그 & 드롭
-/* 		eventDrop: function(event, delta, revertFunc){
+ 		eventDrop: function(event, delta, revertFunc){
 			$.ajax({
 				type: 'POST',
-				url: "/calendar/updateSchedule",
-				data: {calendar_id: event.id, calendar_start_date: event.start.format(), calendar_end_date: event.end.format()},
-				cache: false;	//ajax로 통신 중 cache가 남아서 갱신된 데이터를 받아오지 못할 경우 사용
-				async: false;	//false로 선언시 ajax결과값이 끝난 다음에 함수가 진행됨
-			});
+				url: "CalendarUpdate",
+				data: {caid: event.id, title: event.title, start_date: event.start.format(), end_date: event.end.format()},
+				//cache: false;	//ajax로 통신 중 cache가 남아서 갱신된 데이터를 받아오지 못할 경우 사용
+				//async: false;	//false로 선언시 ajax결과값이 끝난 다음에 함수가 진행됨
+			})
 			.done(function(result){
 				if(result=="OK"){
-					$('#calendar').fullCalendar("refetchEvents");
+					$('#calendar').fullCalendar("refetchEvents");//캘린더 새로고침
 				}
 			})
 		},	 
 	
 		//데이터 삭제
-		eventClick: function(calEvent,jsEvent,view){
+/*		eventClick: function(calEvent,jsEvent,view){
 			if(!confirm("일정'"+calEvent.title+"'을 삭제하시겠습니까?")){
 				return false;
 			}
@@ -100,8 +81,8 @@ function addSchedule(){
 	var scheduleContents="";
 	scheduleContents +="<div style='width:100%; height:30px;'><div style='width:30%; float:left; padding-left:30px'>일정 명칭</div><div style='width:60%; float:right'><input type='text' id='calendar_title' value=''></div></div>";
 	scheduleContents +="<div style='width:100%; height:30px;'><div style='width:30%; float:left; padding-left:30px'>시작 날짜</div><div style='width:60%; float:right'><input type='datetime-local' id='calendar_start_date' value=''></div></div>";
-	scheduleContents +="<div style='width:100%; height:30px;'><div style='width:30%; float:left; padding-left:30px'>마침 날짜</div><div style='width:60%; float:right'><input type='datetime-local' id='calendar_ent_date' value=''></div></div>";
-	scheduleContents +="<div style='width:100%; text-align:center; height:30px; margin-bottom:15px; margin-top:10px'><button onclick= return saveSchedule();>저장하기</button></div>";
+	scheduleContents +="<div style='width:100%; height:30px;'><div style='width:30%; float:left; padding-left:30px'>마침 날짜</div><div style='width:60%; float:right'><input type='datetime-local' id='calendar_end_date' value=''></div></div>";
+	scheduleContents +="<div style='width:100%; text-align:center; height:30px; margin-bottom:15px; margin-top:10px'><button onclick= saveSchedule();>저장하기</button></div>";
 	openPopup("일정 등록", scheduleContents, 400);
 };
 
@@ -111,10 +92,10 @@ function openPopup(subject,contents,widths){
 	openMessage('winAlert',widths)
 };
 
-/* function saveSchedule(){
+function saveSchedule(){
 	var calendar_title = $("#calendar_title").val();
-	var calendar_start_date = $("calendar_start_date").val();
-	var calendar_ent_date = $("#calendar_ent_date").val();
+	var calendar_start_date = $("#calendar_start_date").val();
+	var calendar_end_date = $("#calendar_end_date").val();
 
 	if(!calendar_title){
 		alert("일정 명칭을 입력해 주세요.");
@@ -133,20 +114,23 @@ function openPopup(subject,contents,widths){
 	
 	$.ajax({
 		type: 'POST',
-		url: "/calendar/insertSchedule", //저장하기버튼 눌렀을시 이동하는 컨트롤러 주소
-		data: {calendar_title: calendar_title, calendar_start_date: calendar_start_date, calendar_ent_date: calendar_ent_date},
-		cache: false,
-		async: false
-	});
-	
-	.done(function(result){ // ajax 성공시 (result)함수 실행  ->  $.when(1,2,3).done(function(){ function실행 })
-		if(result=="OK"){
+		url: "CalendarInsert", //저장하기버튼 눌렀을시 이동하는 컨트롤러 주소
+		data: {title: calendar_title, start_date: calendar_start_date, end_date: calendar_end_date},
+//		cache: false,
+//		async: false
+		success: function (result) {
 			closeMessage('winAlert');
-			alert("정상 저장되었습니다.");
+			alert('정상 처리되었습니다.');
+			$('#calendar').fullCalendar("refetchEvents");
+		}
+	})
+	/* .done(function(result){ // ajax 성공시 (result)함수 실행  ->  $.when(1,2,3).done(function(){ function실행 })
+		if(result=="OK"){
+		
 			$('#calendar').fullCalendar("refetchEvents"); //캘린더 새로고침
-		}; 
-	}); 
-}; */
+		} 
+	});  */
+}; 
 
 function openMessage(IDS,widths){
 	$('#'+IDS).css("width",widths+"px");
