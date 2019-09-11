@@ -39,16 +39,12 @@
           var data = new google.visualization.DataTable();
           //그래프에 표시할 컬럼 추가
           data.addColumn('datetime' , '날짜');
-          data.addColumn('number'   , '남성');
-          data.addColumn('number'   , '여성');
-          data.addColumn('number'   , '전체');
+          data.addColumn('number'   , ${});
           //그래프에 표시할 데이터
           var dataRow = [];
-          for(var i = 0; i <= 31; i++){ //랜덤 데이터 생성
-            var total   = Math.floor(Math.random() * 300) + 1;
-            var man     = Math.floor(Math.random() * total) + 1;
-            var woman   = total - man;
-            dataRow = [new Date('2020', '02', i , '0'), man, woman , total];
+ 
+          for(var i = 0; i <= ${size}; i++){ //랜덤 데이터 생성
+            dataRow = [${exam_date}, ${exam_grade}];
             data.addRow(dataRow);
           }
             var chart = new google.visualization.ChartWrapper({
@@ -96,7 +92,6 @@
                                   years : {format: ['yyyy년']},
                                   months: {format: ['MM월']},
                                   days  : {format: ['dd일']},
-                                  hours : {format: ['HH시']}}
                             }}
                         }
                   },

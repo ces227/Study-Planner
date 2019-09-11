@@ -6,7 +6,6 @@ public class GgraphVO {
 	private String graID;
 	private String exam_name;
 	private String exam_date ;
-	private String exam_hour ;
 	private String exam_subject ;
 	private String exam_grade;
 	
@@ -33,12 +32,6 @@ public class GgraphVO {
 	}
 	public void setExam_date(String exam_date) {
 		this.exam_date = exam_date;
-	}
-	public String getExam_hour() {
-		return exam_hour;
-	}
-	public void setExam_hour(String exam_hour) {
-		this.exam_hour = exam_hour;
 	}
 	public String getExam_subject() {
 		return exam_subject;

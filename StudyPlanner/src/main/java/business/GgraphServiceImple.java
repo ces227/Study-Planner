@@ -25,19 +25,26 @@ public class GgraphServiceImple implements GgraphService{
 	public GgraphVO selectOne(GgraphVO vo) {
 		return dao.selectOne(NS+"selectDetail", vo);
 	}
+	
+	@Override
+	public ArrayList<GgraphVO>selectSubject(GgraphVO vo){
+		return (ArrayList)dao.selectList(NS+"selectSubject", vo);
+	}
 
 	@Override
 	public int insert(GgraphVO vo) {
-		return dao.insert(NS+"insertCalendar", vo);
+		return dao.insert(NS+"insertGgraph", vo);
 	}
 
 	@Override
 	public int update(GgraphVO vo) {
-		return dao.update(NS+"updateCalendar", vo);
+		return dao.update(NS+"updateGgraph", vo);
 	}
 
 	@Override
 	public int delete(GgraphVO vo) {
-		return dao.delete(NS+"deleteCalendar", vo);
+		return dao.delete(NS+"deleteGgraph", vo);
 	}
+	
+	
 }

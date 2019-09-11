@@ -18,7 +18,7 @@ import vo.GgraphVO;
 public class GgraphController {
 	
 	@Autowired
-	@Qualifier("Ggraph")
+	@Qualifier("ggraph")
 	private GgraphService service;
 	
 	@RequestMapping(value="/GgraphMain") //member Detail
@@ -31,7 +31,9 @@ public class GgraphController {
 			if(id!=null) {
 				vo.getGraID();
 				gvo=service.selectList(vo);
-				
+				int size = gvo.size();
+				mv.addObject("size", size);
+				mv.addObject("", gvo);
 			}else {
 				System.out.println("***** loginID null *****");
 			}
@@ -41,5 +43,32 @@ public class GgraphController {
 		mv.setViewName("graph/graph");
 		return mv;
 	}
+	
+	@RequestMapping(value="/GgraphDetail") //member Detail
+	public ModelAndView GgraphDetail(HttpServletRequest request, 
+			ModelAndView mv, GgraphVO vo) {
+		String id=null;
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			id=(String)session.getAttribute("id");
+			if(id!=null) {
+				vo.setGraID(id);
+				ArrayList<GgraphVO> gvo = service.selectList(vo);
+				gvo=service.selectList(vo);
+				mv.addObject("Ggraph", gvo);
+				if(gvo.size()==0) {
+					mv.addObject("Ggraphempty", "True");					
+				}
+			}else {
+				System.out.println("***** loginID null *****");
+			}
+		}else {
+			System.out.println("***** session null *****");
+		}
+		mv.setViewName("graph/insertgraph");
+		return mv;
+	}
+	
+
 
 }
