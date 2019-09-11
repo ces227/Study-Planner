@@ -25,6 +25,6 @@
 </update>
 
 <delete id="deleteCalendar">
-	DELETE calendar WHERE caid=#{caid}
+	DELETE calendar WHERE caid=#{caid} AND title=#{title}
 </delete>
 </mapper>

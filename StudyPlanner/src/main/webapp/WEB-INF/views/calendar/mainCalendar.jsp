@@ -47,33 +47,24 @@ $(document).ready(function() {
 				//cache: false;	//ajax로 통신 중 cache가 남아서 갱신된 데이터를 받아오지 못할 경우 사용
 				//async: false;	//false로 선언시 ajax결과값이 끝난 다음에 함수가 진행됨
 			})
-			.done(function(result){
-				if(result=="OK"){
-					$('#calendar').fullCalendar("refetchEvents");//캘린더 새로고침
-				}
-			})
 		},	 
 	
 		//데이터 삭제
-/*		eventClick: function(calEvent,jsEvent,view){
+		eventClick: function(calEvent,jsEvent,view){
 			if(!confirm("일정'"+calEvent.title+"'을 삭제하시겠습니까?")){
 				return false;
 			}
 			$.ajax({
 				type: 'POST',
-				url: "/calendar/deleteSchedule",
-				data: {calendar_id: calEvent.id},
-				cache: false,
-				async: false
-			})
-			.done(function(result){
-				if(result=="OK"){
-					alert("정상적으로 삭제되었습니다.");
-					$('#calendar').fullCalendar("refetchEvents");
+				url: "CalendarDelete",
+				data: {title: calEvent.title},
+				success: function (result) {
+					closeMessage('winAlert');
+					alert('정상 처리되었습니다.');
+					location.href = 'http://localhost:9090/green/CalendarMain';
 				}
-			});
+			})
 		}
- */
     });
 });
 
@@ -116,20 +107,12 @@ function saveSchedule(){
 		type: 'POST',
 		url: "CalendarInsert", //저장하기버튼 눌렀을시 이동하는 컨트롤러 주소
 		data: {title: calendar_title, start_date: calendar_start_date, end_date: calendar_end_date},
-//		cache: false,
-//		async: false
 		success: function (result) {
 			closeMessage('winAlert');
 			alert('정상 처리되었습니다.');
-			$('#calendar').fullCalendar("refetchEvents");
+			location.href = 'http://localhost:9090/green/CalendarMain';
 		}
 	})
-	/* .done(function(result){ // ajax 성공시 (result)함수 실행  ->  $.when(1,2,3).done(function(){ function실행 })
-		if(result=="OK"){
-		
-			$('#calendar').fullCalendar("refetchEvents"); //캘린더 새로고침
-		} 
-	});  */
 }; 
 
 function openMessage(IDS,widths){
