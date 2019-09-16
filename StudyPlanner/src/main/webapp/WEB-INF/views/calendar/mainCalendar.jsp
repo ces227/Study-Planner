@@ -94,6 +94,7 @@ function saveSchedule(){
 	};
 	
 	if(!calendar_start_date){
+		
 		alert("시작 날짜를 입력해 주세요.");
 		return false;
 	};
