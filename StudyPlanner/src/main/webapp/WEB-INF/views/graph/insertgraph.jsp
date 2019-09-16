@@ -12,7 +12,7 @@
 <script src="resources/jsLib/jquery.ajaxQueue.js"></script>
 <script src="resources/jsLib/jquery.autocomplete.js"></script>
 <script src="resources/jsLib/jquery.bgiframe.min.js"></script>
-<script src="resources/jsLib/insertgraph.js"></script>
+<script src="resources/jsLib/GgraphContol.js"></script>
 <link href="resources/jsLib/jquery.autocomplete.css" rel="stylesheet"/>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//code.jquery.com/jquery.min.js"></script>
@@ -67,7 +67,7 @@ $(function() {
 	<div id="login">
 		<div class="container">
 			<div id="login-row" class="row justify-content-center align-items-center">
-<form action="" method="post">
+<form id="Ggraphform">
 <table id="addTable" style="margin-left: auto; margin-right: auto;">
 
 <c:if test="${Ggraphempty=='True'}">
@@ -80,7 +80,7 @@ $(function() {
 <c:forEach var="score" items="${Ggraph}">
 <tr>
 <td>
-<input type="hidden" name="seq" value="${score.seq}" readonly="readonly" class="form-control">
+<input type="hidden" name="seq" id="seq" value="${score.seq}" readonly="readonly" class="form-control">
 </td>
 <td>
 <input type="date" name="exam_date" value="${score.exam_date}" class="form-control">
@@ -95,7 +95,7 @@ $(function() {
 <input type="text" name="exam_grade" value="${score.exam_grade}" class="form-control" width="20px">
 </td>
 <td>
-<button class="btn btn-default" name="delStaff">삭제</button>
+<button class="btn btn-default" name="delStaff" id="deleteBtn">삭제</button>
 </td>
 </tr>
 </c:forEach>
@@ -106,7 +106,8 @@ $(function() {
 <br>
 <button type="button" class="btn btn-info btn-md" id="add" style="margin-left: 50%;">추가</button>
 <br>
-<input type="submit" value="수정하기" class="btn btn-info btn-md">
+<input type="submit" value="수정하기" class="btn btn-info btn-md" onclick="submitForm()">
+
 </form>
 			</div>
 		</div>

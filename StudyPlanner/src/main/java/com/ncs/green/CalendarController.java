@@ -44,5 +44,71 @@ public class CalendarController {
 		mv.setViewName("calendar/mainCalendar");
 		return mv;
 	}
-
+	
+	@RequestMapping(value="/CalendarUpdate")
+	public ModelAndView CalendarUpdate(HttpServletRequest request, ModelAndView mv, CalendarVO vo) {
+		String id=null;
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			id=(String)session.getAttribute("id");
+			if(id!=null) {
+				vo.setCaid(id);
+			}
+		}
+		int cnt=0;
+		cnt=service.update(vo);
+		if(cnt>0) {
+			System.out.println("*****업데이트 성공*****");
+			mv.setViewName("calendar/mainCalendar");
+		}else {
+			System.out.println("*****업데이트 실패*****");
+			mv.setViewName("calendar/mainCalendar");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/CalendarInsert")
+	public ModelAndView CalendarInsert(HttpServletRequest request, ModelAndView mv, CalendarVO vo) {
+		String id=null;
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			id=(String)session.getAttribute("id");
+			if(id!=null) {
+				vo.setCaid(id);
+			}
+		}
+		int cnt=0;
+		cnt=service.insert(vo);
+		if(cnt>0) {
+			System.out.println("*****Calendar insert 성공*****");
+			mv.setViewName("redirect:CalendarMain");
+		}else {
+			System.out.println("*****Calendar insert 실패*****");
+			mv.setViewName("redirect:CalendarMain");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="CalendarDelete")
+	public ModelAndView CalendarDelete(HttpServletRequest request, ModelAndView mv, CalendarVO vo) {
+		String id=null;
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			id=(String)session.getAttribute("id");
+			if(id!=null) {
+				vo.setCaid(id);
+			}
+		}
+		int cnt=0;
+		System.out.println(vo);
+		cnt=service.delete(vo);
+		if(cnt>0) {
+			System.out.println("*****Calendar 삭제 성공*****");
+			mv.setViewName("redirect:CalendarMain");
+		}else {
+			System.out.println("*****Calendar 삭제 실패*****");
+			mv.setViewName("redirect:CalendarMain");
+		}
+		return mv;
+	}
 }

@@ -2,17 +2,17 @@ package vo;
 
 public class GgraphVO {
 
-	private int seq;
+	private String seq;
 	private String graID;
 	private String exam_name;
 	private String exam_date ;
 	private String exam_subject ;
 	private String exam_grade;
 	
-	public int getSeq() {
+	public String getSeq() {
 		return seq;
 	}
-	public void setSeq(int seq) {
+	public void setSeq(String seq) {
 		this.seq = seq;
 	}
 	public String getGraID() {
@@ -44,6 +44,11 @@ public class GgraphVO {
 	}
 	public void setExam_grade(String exam_grade) {
 		this.exam_grade = exam_grade;
+	}
+	@Override
+	public String toString() {
+		return "GgraphVO [seq=" + seq + ", graID=" + graID + ", exam_name=" + exam_name + ", exam_date=" + exam_date
+				+ ", exam_subject=" + exam_subject + ", exam_grade=" + exam_grade + "]";
 	}
 	
 	

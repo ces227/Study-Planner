@@ -17,14 +17,14 @@
 </select>
 
 <insert id="insertCalendar">
-	INSERT INTO calendar VALUES(#{caid}, #{title}, #{start_date}, #{end_date}, #{create_date})
+	INSERT INTO calendar VALUES(#{caid}, #{title}, #{start_date}, #{end_date}, sysdate)
 </insert>
 
 <update id="updateCalendar">
-	UPDATE calendar SET title=#{title}, start_date=#{start_date}, end_date=#{end_date}, create_date=#{create_date} WHERE caid=#{caid}
+	UPDATE calendar SET start_date=#{start_date}, end_date=#{end_date} WHERE caid=#{caid} AND title=#{title}
 </update>
 
 <delete id="deleteCalendar">
-	DELETE calendar WHERE caid=#{caid}
+	DELETE calendar WHERE caid=#{caid} AND title=#{title}
 </delete>
 </mapper>

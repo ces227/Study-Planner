@@ -14,23 +14,28 @@
 </select>
 
 <select id="selectDetail" resultType="vo.GgraphVO">
-	SELECT * FROM ggraph WHERE seq=#{seq}
+	SELECT * FROM ggraph WHERE seq=TO_NUMBER(#{seq})
 </select>
 
 <select id="selectSubject" resultType="vo.GgraphVO"> <!-- 과목/날짜 과거부터 정렬 -->
-	SELECT exam_name, exam_date, AS exam_date, exam_grade FROM ggraph WHERE exam_subjec=#{exam_subjec} AND graID=#{graID} ORDER BY exam_date ASC;
+	SELECT exam_name, exam_date, AS exam_date, exam_grade 
+	FROM ggraph 
+	WHERE exam_subject=#{exam_subject} AND graID=#{graID} 
+	ORDER BY exam_date ASC;
 </select>
 
 <insert id="insertGgraph"> <!-- ggraph_seq의 다음 수를 seq 에 넣어준다. -->
-	INSERT INTO ggraph VALUES(ggraph_seq.NEXTVAL, #{graID}, #{exam_name}, #{exam_date}, #{exam_subjec}, #{exam_grade})
+	INSERT INTO ggraph VALUES(ggraph_seq.NEXTVAL, #{graID}, #{exam_name}, #{exam_date}, #{exam_subject}, #{exam_grade})
 </insert>
 
 <update id="updateGgraph">
-	UPDATE ggraph SET exam_name=#{exam_name}, exam_date=#{exam_date}, exam_hour=#{exam_hour}, exam_subjec=#{exam_subjec} WHERE seq=#{seq}
+	UPDATE ggraph SET exam_name=#{exam_name}, exam_date=#{exam_date}, exam_subject=#{exam_subject} ,exam_grade=#{exam_grade}
+	WHERE seq=TO_NUMBER(#{seq})
 </update>
 
 <delete id="deleteGgraph">
-	DELETE ggraph WHERE seq=#{seq}
+	DELETE ggraph 
+	WHERE seq=TO_NUMBER(#{seq})
 </delete>
 
 </mapper>
