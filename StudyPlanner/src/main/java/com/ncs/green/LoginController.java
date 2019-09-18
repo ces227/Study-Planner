@@ -62,13 +62,22 @@ public class LoginController {
 		mv.setViewName("loginForm"); // 로그아웃시 홈화면으로...
 		return mv;
 	} // logout
+	
+	// 0909
+	@RequestMapping(value = "/loginForm")
+	public ModelAndView loginff(ModelAndView mv) {
+		mv.setViewName("loginForm");
+		return mv;
+	}
+	
+	
 	//-------------------------------------------------------------------┘
 	
 
 	// 사이트 소개 페이지(introduce.jsp) 매핑
 	@RequestMapping(value = "/siteIntro")
 	public ModelAndView ploginf(ModelAndView mv) {
-		mv.setViewName("login/introduce");
+		mv.setViewName("introduce");
 		return mv;
 	}
 
