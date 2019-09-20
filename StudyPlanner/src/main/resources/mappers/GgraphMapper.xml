@@ -6,11 +6,19 @@
 
 <select id="selectList" resultType="vo.GgraphVO">
 	SELECT
-	seq,
+	TO_CHAR(seq) AS seq,
 	TO_CHAR(exam_date,'YYYY-MM-DD') AS exam_date,
 	exam_name, exam_subject, exam_grade
 	FROM ggraph 
-	WHERE graID=#{graID} 
+	WHERE graID=#{graID}
+	ORDER BY exam_date ASC
+</select>
+
+<select id="selectsubject" resultType="vo.GgraphVO">
+	SELECT DISTINCT
+	exam_subject
+	FROM ggraph 
+	WHERE graID=#{graID}
 </select>
 
 <select id="selectDetail" resultType="vo.GgraphVO">
@@ -18,10 +26,10 @@
 </select>
 
 <select id="selectSubject" resultType="vo.GgraphVO"> <!-- 과목/날짜 과거부터 정렬 -->
-	SELECT exam_name, exam_date, AS exam_date, exam_grade 
+	SELECT exam_name, TO_CHAR(exam_date,'YYYY-MM-DD') AS exam_date, exam_grade 
 	FROM ggraph 
 	WHERE exam_subject=#{exam_subject} AND graID=#{graID} 
-	ORDER BY exam_date ASC;
+	ORDER BY exam_date ASC
 </select>
 
 <insert id="insertGgraph"> <!-- ggraph_seq의 다음 수를 seq 에 넣어준다. -->

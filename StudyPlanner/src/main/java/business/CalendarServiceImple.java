@@ -43,4 +43,9 @@ public class CalendarServiceImple implements CalendarService{
 	public int delete(CalendarVO vo) {
 		return dao.delete(NS+"deleteCalendar", vo);
 	}
+
+	@Override
+	public ArrayList<CalendarVO> selectsubject(CalendarVO vo) {
+		return (ArrayList)dao.selectList(NS+"selectsubject", vo);
+	}
 }

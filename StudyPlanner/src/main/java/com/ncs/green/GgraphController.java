@@ -18,11 +18,11 @@ import vo.GgraphVO;
 
 @Controller
 public class GgraphController {
-	
+
 	@Autowired
 	@Qualifier("ggraph")
 	private GgraphService service;
-	
+
 	@RequestMapping(value="/GgraphMain") //member Detail
 	public ModelAndView CalendarMain(HttpServletRequest request, 
 			ModelAndView mv, GgraphVO vo, ArrayList<GgraphVO> gvo) {
@@ -31,11 +31,15 @@ public class GgraphController {
 		if(session!=null) {
 			id=(String)session.getAttribute("id");
 			if(id!=null) {
-				vo.getGraID();
+				vo.setGraID(id);
+				
+				gvo=service.selectSubject(vo);
+				mv.addObject("subject", gvo);
+				
 				gvo=service.selectList(vo);
 				int size = gvo.size();
 				mv.addObject("size", size);
-				mv.addObject("", gvo);
+				mv.addObject("graphData", gvo);
 			}else {
 				System.out.println("***** loginID null *****");
 			}
@@ -45,7 +49,7 @@ public class GgraphController {
 		mv.setViewName("graph/graph");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="/GgraphDetail") //member Detail
 	public ModelAndView GgraphDetail(HttpServletRequest request, 
 			ModelAndView mv, GgraphVO vo) {
@@ -70,20 +74,23 @@ public class GgraphController {
 		mv.setViewName("graph/insertgraph");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="/GgraphDelete")
 	public ModelAndView GgraphDelete(HttpServletRequest request, ModelAndView mv, GgraphVO vo) {
 		System.out.println(vo);
+		int cnt=0;
 		String id=null;
 		HttpSession session = request.getSession(false);
 		if(session!=null) {
 			id=(String)session.getAttribute("id");
-			if(id==null) {
+			if(id!=null) {
+				cnt=service.delete(vo);
+			} else {
 				System.out.println("*****id is null****");
 			}
+		} else {
+			System.out.println("***** session null *****");
 		}
-		int cnt=0;
-		cnt=service.delete(vo);
 		if(cnt>0) {
 			System.out.println("*****Ggraph Delete Success*****");
 			mv.setViewName("");
@@ -93,7 +100,7 @@ public class GgraphController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping(value="/Ggraphupdate")
 	public ModelAndView Ggraphupdate(HttpServletRequest request, ModelAndView mv, Map<String,GgraphVO> map,GgraphVO vo) {
 		HttpSession session = request.getSession(false);
@@ -108,7 +115,7 @@ public class GgraphController {
 		String[] arrDate=map.get("ggraphVO").getExam_date().split(",");
 		String[] arrsubject=map.get("ggraphVO").getExam_subject().split(",");
 		String[] arrGrade=map.get("ggraphVO").getExam_grade().split(",");
-		
+
 		for (int i = 0; i < arrSeq.length; i++) {
 			vo.setSeq(arrSeq[i]);
 			vo.setExam_name(arrName[i]);
@@ -136,12 +143,12 @@ public class GgraphController {
 				System.out.println(i+"***실패***");
 			}
 		}
-		
+
 		mv.setViewName("redirect:GgraphMain");
-		
+
 		return mv;
 	}
-	
+
 
 
 }

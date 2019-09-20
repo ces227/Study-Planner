@@ -1,21 +1,4 @@
 $(function() {
-
-	$("#deleteBtn").on("click", function() {
-		if(!confirm("삭제하시겠습니까?")){
-			return false;
-		}
-		$.ajax({
-			type: 'POST',
-			url: "GgraphDelete",
-			data: {
-				seq : $('#seq').val()
-			},
-			success: function (result) {
-				alert('정상 처리되었습니다.');
-				location.href = 'http://localhost:9090/green/GgraphDetail';
-			}
-		})
-	}); //delete
 	$.fn.serializeObject = function() {
 
 		  var result = {}
@@ -47,7 +30,9 @@ function submitForm() {
 		data: formData,
 		success: function (result) {
 			alert('정상 처리되었습니다.');
+			location.href = 'redirect:/GgraphDetail';
 		}
-	}) //ajax 끝
+	}) //ajax 끝	
 } //함수 끝
+
 	

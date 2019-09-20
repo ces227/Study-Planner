@@ -8,12 +8,7 @@
 <title>성적 추가하기</title>
 
 <script src="resources/jsLib/jquery-3.2.1.min.js"></script>
-<script src="resources/jsLib/jquery.js"></script>
-<script src="resources/jsLib/jquery.ajaxQueue.js"></script>
-<script src="resources/jsLib/jquery.autocomplete.js"></script>
-<script src="resources/jsLib/jquery.bgiframe.min.js"></script>
 <script src="resources/jsLib/GgraphContol.js"></script>
-<link href="resources/jsLib/jquery.autocomplete.css" rel="stylesheet"/>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//code.jquery.com/jquery.min.js"></script>
 
@@ -38,28 +33,34 @@ $(function() {
         trHtml.remove(); //tr 테그 삭제
          
     });
+for (var i=0 ; i<$('#addTable tr').length ; i++){	
+	
+	$("#del"+i).on("click",function(){
+	if(!confirm("삭제하시겠습니까?"+"#seq"+i)){
+		return false;
+	}
+	var trHtml = $(this).parent().parent();
+    trHtml.remove(); 
+	$.ajax({
+		type: 'POST',
+		url: "GgraphDelete",
+		data: {
+			seq : $("#seq"+i).val()
+		},
+		success: function (result) {
+			alert('정상 처리되었습니다.');
+			location.href = 'redirect:/GgraphDetail';
+		}
+	})
 });
-
+}
+});
 </script>
-<style type="text/css">
 
-</style>
 </head>
 <body>
 <header>
-
 </header>
-
-<c:if test="${detailCheck=='S'}">
-	<script>
-		alert("정보 수정에 성공했습니다!")	
-	</script>
-</c:if>
-<c:if test="${detailCheck=='F'}">
-	<script>
-		alert("정보 수정에 실패했습니다")	
-	</script>
-</c:if>
 <p>
 <br>
 <h3 class="text-center text-info">성적 추가하기</h3>
@@ -77,10 +78,10 @@ $(function() {
 <td></td><td class="text-info">시험 날짜</td><td class="text-info">시험 이름</td><td class="text-info">시험 과목</td><td class="text-info">점수·등급</td>
 </tr>
 
-<c:forEach var="score" items="${Ggraph}">
+<c:forEach var="score" items="${Ggraph}" varStatus="vs">
 <tr>
 <td>
-<input type="hidden" name="seq" id="seq" value="${score.seq}" readonly="readonly" class="form-control">
+<input type="hidden" name="seq" id="seq${vs.index}" value="${score.seq}" readonly="readonly" class="form-control">
 </td>
 <td>
 <input type="date" name="exam_date" value="${score.exam_date}" class="form-control">
@@ -89,13 +90,13 @@ $(function() {
 <input type="text" name="exam_name" value="${score.exam_name}" class="form-control" width="60px">
 </td>
 <td>
-<input type="text" name="exam_subject" id="exam_subject" value="${score.exam_subject}" class="form-control">
+<input type="text" name="exam_subject" value="${score.exam_subject}" class="form-control">
 </td>
 <td>
 <input type="text" name="exam_grade" value="${score.exam_grade}" class="form-control" width="20px">
 </td>
 <td>
-<button class="btn btn-default" name="delStaff" id="deleteBtn">삭제</button>
+<button class="btn btn-default" id="del${vs.index}">삭제</button>
 </td>
 </tr>
 </c:forEach>
