@@ -14,7 +14,7 @@
 	ORDER BY exam_date ASC
 </select>
 
-<select id="selectsubject" resultType="vo.GgraphVO">
+<select id="selectsubject" resultType="vo.GgraphVO"> <!-- 과목만 select -->
 	SELECT DISTINCT
 	exam_subject
 	FROM ggraph 

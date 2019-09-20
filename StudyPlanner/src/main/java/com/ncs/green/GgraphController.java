@@ -32,10 +32,15 @@ public class GgraphController {
 			id=(String)session.getAttribute("id");
 			if(id!=null) {
 				vo.setGraID(id);
-				
+				/* 
 				gvo=service.selectSubject(vo);
+				ArrayList<String> subjectList = new ArrayList<String>();
+				for (int i = 0; i < gvo.size(); i++) {
+					subjectList.add(gvo.get(i).getExam_subject());
+					System.out.println("subjectList"+i+"="+subjectList.get(i));
+				}
 				mv.addObject("subject", gvo);
-				
+				*/
 				gvo=service.selectList(vo);
 				int size = gvo.size();
 				mv.addObject("size", size);
