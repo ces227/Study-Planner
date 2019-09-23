@@ -58,49 +58,16 @@ $(document).ready(function(){
 	/* --------------- 댓글 관련---------------- */
 	// 1. 댓글 입력-------------------------------
 	$("#btnReply").click(function(){
-		alert("댓글작성이 클릭!!"); //완료
-		//reply(); // 폼데이터 형식으로 입력
-		//alert("reply()함수까지 완료!! 완료됬는뎅...왜 안됭...짜증개짜증");
 		replyJson(); // json 형식으로 입력
-		alert("json 방식으로 되었다..");
 	});
 	
 	// 2. 댓글 목록
 	listReply("1"); // 댓글 목록 불러오기
-	//listReply2(); // json 리턴방식
-	//listReplyRest("1"); // rest방식
+
 	
 });
 
 /* --------------- 댓글 관련 -------------- */
-
-/* // 1_1. 댓글 입력 함수(폼 데이터 방식)
-function reply(){
-	var replytext=$("#replytext").val();
-	var bno="${dto.bno}";
-	// 비밀댓글 체크여부
-	var secretReply = "n";
-	// 태그.is(":속성") 체크여부 true/false
-	if( $("#secretReply").is(":checked") ){
-		secretReply = "y";
-	}
-	// 비밀댓글 파라미터 추가
-	var param="replytext="+replytext+"&bno="+bno+"&secretReply="+secretReply;
-	
-	alert("reply()함수 내의 replytext="+replytext+",bno= "+bno+", secretReply=" +secretReply+ ", param= "+param);
-	
-	$.ajax({				
-		type: "post",
-		url: "/reply/insert",
-		data: param,
-		success: function(){
-			alert("댓글이 등록되었습니다.");
-			//listReply2();
-			// listReply("1");
-		}
-	});
-		
-} */
 
 // 1_2. 댓글 입력 함수(json방식)
 function replyJson(){
@@ -128,47 +95,11 @@ function replyJson(){
 		success: function(){
 			alert("댓글이 등록되었습니다.");
 			// 댓글 입력 완료후 댓글 목록 불러오기 함수 호출
-			//listReply("1"); 	// 전통적인 Controller방식
-			//listReply2(); 	// json리턴 방식
 			listReplyRest("1"); // Rest 방식
 		}
 	});
 }
 
-/*
-// 2_1. 댓글 목록 - 전통적인 Controller방식
-function listReply(num){
-	$.ajax({
-		type: "get",
-		url: "reply/list?bno=${dto.bno}&curPage="+num,
-		success: function(result){
-		// responseText가 result에 저장됨.
-			$("#listReply").html(result);
-		}
-	});
-}
-
-// 2_2. 댓글 목록 - RestController를 이용 json형식으로 리턴
-function listReply2(){
-	$.ajax({
-		type: "get",
-		//contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-		url: "reply/listJson?bno=${dto.bno}",
-		success: function(result){
-			console.log(result);
-			var output = "<table>";
-			for(var i in result){
-				output += "<tr>";
-				output += "<td>"+result[i].userName;
-				output += "("+changeDate(result[i].regdate)+")<br>";
-				output += result[i].replytext+"</td>";
-				output += "<tr>";
-			}
-			output += "</table>";
-			$("#listReply").html(output);
-		}
-	});
-}*/
 // 2_2. 댓글 목록 - 날짜 형식 변환 함수 작성
 function changeDate(date){
 	date = new Date(parseInt(date));
@@ -200,13 +131,20 @@ function showReplyModify(rno){
 		type: "get",
 		url: "http://localhost:9090/green/reply/detail/"+rno,
 		success: function(result){
-			$("#modifyReply").html(result);
+			/* $("#modifyReply").bPopup({
+				modalColor:'gray',
+				loadUrl: 'http://localhost:9090/green/reply/list/${dto.bno}/"+num,
+				
+			}); */
+			//html(result);
 			// 태그.css("속성", "값")
+			$("#modifyReply").html(result);
 			$("#modifyReply").css("visibility", "visible");
 		}
 	})
 }
 </script>
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
@@ -219,26 +157,38 @@ function showReplyModify(rno){
 	z-index: 10;
 	visibility: hidden;
 }
+.center {
+	margin: auto;
+	width:46%;
+	/* border: 3px solid #73AD21;  */
+	padding: 10px;
+}
+label[for="board_content"] {
+   position:absolute;
+}
 
+label {
+	font-size: 20px;
+}
 </style>
 </head>
 
 <body>
-	<h2>게시글 보기</h2>
-	<c:choose>
-		<c:when test="${dto.show == 'y'}">
+	
+	<div class="center">	
+	<h3><b>게시글 보기</b></h3><br>
 		<!-- show가 y면 -->	
 			<!-- 게시물 상세보기 영역 -->
 			<form name="form1" id="form1" method="post" >
 				<div>		<!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 -->
-					작성일자 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
+					<label for="board_date">작성일자 :&nbsp;</label><fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
 							<!-- 날짜 형식 => yyyy 4자리연도, MM 월, dd 일, a 오전/오후, HH 24시간제, hh 12시간제, mm 분, ss 초 -->
 				</div>
 				<div>
-					조회수 : ${dto.viewcnt}
+					<label for="board_view">조회수 :&nbsp;&nbsp;</label>  ${dto.viewcnt}
 				</div>
 				<div>
-					제목
+					<label for="board_title">제목</label>&nbsp;&nbsp;
 					<c:if test="${sessionScope.id == dto.writer}"><!-- 작성자와 로그인한 사람이 같으면 readonly 설정 x -->
 						<input name="title" id="title" size="80" value="${dto.title}" placeholder="제목을 입력해주세요">
 					</c:if>
@@ -247,19 +197,18 @@ function showReplyModify(rno){
 					</c:if>
 				</div>
 				<div>
-					내용
+					<label for="board_content">내용</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<c:if test="${sessionScope.id == dto.writer}"><!-- 작성자와 로그인한 사람이 같으면 readonly 설정 x -->
-						<textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${dto.content}</textarea>
+						<textarea name="content" id="content" rows="4" cols="82" style="resize: none;">${dto.content}</textarea>
 					</c:if>
 					<c:if test="${sessionScope.id != dto.writer}">
-						<textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요" readonly="readonly">${dto.content}</textarea>
+						<textarea name="content" id="content" rows="4" cols="82" style="resize: none;" readonly="readonly">${dto.content}</textarea>
 					</c:if>
 				</div>
 				<div>
-					이름
+					<label for="board_name">이름&nbsp;&nbsp;</label>
 					<input name="writer" id="writer" value="${dto.userName}" placeholder="이름을 입력해주세요"> 
-					${dto.userName}
-				</div>
+				</div><br>
 				<div style="width:650px; text-align: center;">
 					<!-- 게시물번호를 hidden으로 처리 -->
 					<input type="hidden" name="bno" value="${dto.bno}">
@@ -286,18 +235,13 @@ function showReplyModify(rno){
 					<input type="checkbox" id="secretReply">비밀 댓글
 					<button type="button" id="btnReply" class="btn btn-info btn-md">댓글 작성</button>
 				</c:if>
+				<hr>
 			</div>
 			<!-- 댓글 작성 영역 -->
-		
-		</c:when>
-		<c:otherwise>
-		<!-- show가 n이면 -->
-			삭제된 게시글 입니다.
-		</c:otherwise>
-	</c:choose>
 	<!-- 댓글 목록 영역 -->
 	<div id="listReply"></div>
 	<!-- 댓글 목록 영역 -->
+	</div>
 </body>
 </html>
 
