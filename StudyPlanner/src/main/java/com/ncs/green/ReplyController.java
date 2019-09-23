@@ -97,7 +97,7 @@ public class ReplyController {
 	}
 
 	// 2_2. 댓글 목록(@RestController방식 : Json으로 데이터를 리턴)
-	@RequestMapping("listJson.do")
+	@RequestMapping("listJson")
 	@ResponseBody // 리턴데이터를 json으로 변환(RestController사용시 @ResponseBody생략가능)
 	public List<ReplyVO> listJson(@RequestParam int bno, @RequestParam(defaultValue = "1") int curPage,
 			HttpSession session) {
