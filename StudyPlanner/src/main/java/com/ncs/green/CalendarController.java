@@ -58,10 +58,10 @@ public class CalendarController {
 		int cnt=0;
 		cnt=service.update(vo);
 		if(cnt>0) {
-			System.out.println("*****업데이트 성공*****");
+			System.out.println("*****calendar update success*****");
 			mv.setViewName("calendar/mainCalendar");
 		}else {
-			System.out.println("*****업데이트 실패*****");
+			System.out.println("*****calendar updatee fail*****");
 			mv.setViewName("calendar/mainCalendar");
 		}
 		return mv;
@@ -80,10 +80,10 @@ public class CalendarController {
 		int cnt=0;
 		cnt=service.insert(vo);
 		if(cnt>0) {
-			System.out.println("*****Calendar insert 성공*****");
+			System.out.println("*****Calendar insert success*****");
 			mv.setViewName("redirect:CalendarMain");
 		}else {
-			System.out.println("*****Calendar insert 실패*****");
+			System.out.println("*****Calendar insert fail*****");
 			mv.setViewName("redirect:CalendarMain");
 		}
 		return mv;
@@ -103,10 +103,10 @@ public class CalendarController {
 		System.out.println(vo);
 		cnt=service.delete(vo);
 		if(cnt>0) {
-			System.out.println("*****Calendar 삭제 성공*****");
+			System.out.println("*****Calendar delete success*****");
 			mv.setViewName("redirect:CalendarMain");
 		}else {
-			System.out.println("*****Calendar 삭제 실패*****");
+			System.out.println("*****Calendar delete fail*****");
 			mv.setViewName("redirect:CalendarMain");
 		}
 		return mv;
