@@ -131,14 +131,8 @@ function showReplyModify(rno){
 		type: "get",
 		url: "http://localhost:9090/green/reply/detail/"+rno,
 		success: function(result){
-			/* $("#modifyReply").bPopup({
-				modalColor:'gray',
-				loadUrl: 'http://localhost:9090/green/reply/list/${dto.bno}/"+num,
-				
-			}); */
-			//html(result);
-			// 태그.css("속성", "값")
 			$("#modifyReply").html(result);
+			// 태그.css("속성", "값")
 			$("#modifyReply").css("visibility", "visible");
 		}
 	})
@@ -202,7 +196,7 @@ label {
 						<textarea name="content" id="content" rows="4" cols="82" style="resize: none;">${dto.content}</textarea>
 					</c:if>
 					<c:if test="${sessionScope.id != dto.writer}">
-						<textarea name="content" id="content" rows="4" cols="82" style="resize: none;" readonly="readonly">${dto.content}</textarea>
+						<textarea name="content" id="content" rows="4" cols="80" style="resize: none;" readonly="readonly">${dto.content}</textarea>
 					</c:if>
 				</div>
 				<div>
@@ -238,6 +232,9 @@ label {
 				<hr>
 			</div>
 			<!-- 댓글 작성 영역 -->
+			
+		
+
 	<!-- 댓글 목록 영역 -->
 	<div id="listReply"></div>
 	<!-- 댓글 목록 영역 -->

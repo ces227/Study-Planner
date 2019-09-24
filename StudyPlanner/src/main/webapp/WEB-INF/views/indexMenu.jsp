@@ -13,6 +13,13 @@
 </head>
 <body>
 
+<div id='logout' align="right">
+		${id} 님이 로그인 중입니다
+		<img id="logout" class="logout" name="logout" src="resources/image/logout.jpg" 
+			weight="85px" height="35px" onclick="javascript:location.href='http://localhost:9090/green/logout';">
+		<!-- <a href='logout' style= "text-decorateion:'none' ; " id='logout' class='logout'>로그아웃</a> -->
+</div>
+
 <div id='cssmenu'>
 <ul>
    <li class='active'><a href='#'>Home</a></li>
@@ -21,6 +28,7 @@
    <li><a href='http://localhost:9090/green/studentDetail' target="section">내 정보</a></li>
    <li><a href='http://www.career.go.kr/cnet/iframe/MajorDic.do?apiKey=8b3617461e2979d61e0ab5749928e610&gubun=univDic' target="section">학과 정보</a></li>
    <li><a href='http://localhost:9090/green/siteIntro' target="section">만든 사람들</a></li>
+   <li><a href='http://localhost:9090/green/board/list' target="section">게시판</a></li>
 </ul>
 <br>
 <br>

@@ -20,29 +20,29 @@ public class ReplyServiceImpl implements ReplyService {
 	@Autowired
 	ReplyDAO replyDao;
 
-	// 1. ëŒ“ê¸€ ì…ë ¥
+	// 1. ´ñ±Û ÀÔ·Â
 	@Override
 	public void create(ReplyVO vo) {
 		replyDao.create(vo);
 	}
 
-	// 2. ëŒ“ê¸€ ëª©ë¡
+	// 2. ´ñ±Û ¸ñ·Ï
 	@Override
 	public List<ReplyVO> list(Integer bno, int start, int end, HttpSession session) {
 		List<ReplyVO> items = replyDao.list(bno, start, end);
-		// ì„¸ì…˜ì—ì„œ í˜„ì¬ ì‚¬ìš©ì idê°’ ì €ì¥
+		// ¼¼¼Ç¿¡¼­ ÇöÀç »ç¿ëÀÚ id°ª ÀúÀå
 		String userId = (String) session.getAttribute("id");
 		for (ReplyVO vo : items) {
-			// ëŒ“ê¸€ ëª©ë¡ì¤‘ì— ì¤‘ì— ë¹„ë°€ ëŒ“ê¸€ì´ ìˆì„ ê²½ìš°
+			// ´ñ±Û ¸ñ·ÏÁß¿¡ Áß¿¡ ºñ¹Ğ ´ñ±ÛÀÌ ÀÖÀ» °æ¿ì
 			if (vo.getSecretReply().equals("y")) {
-				if (userId == null) { // ë¹„ë¡œê·¸ì¸ ìƒíƒœë©´ ë¹„ë°€ ëŒ“ê¸€ë¡œ ì²˜ë¦¬
-					vo.setReplytext("ë¹„ë°€ ëŒ“ê¸€ì…ë‹ˆë‹¤.");
-				} else { // ë¡œê·¸ì¸ ìƒíƒœì¼ ê²½ìš°
-					String writer = vo.getWriter(); // ê²Œì‹œë¬¼ ì‘ì„±ì ì €ì¥
-					String replyer = vo.getReplyer(); // ëŒ“ê¸€ ì‘ì„±ì ì €ì¥
-					// ë¡œê·¸ì¸í•œ ì‚¬ìš©ìê°€ ê²Œì‹œë¬¼ì˜ ì‘ì„±ìX ëŒ“ê¸€ ì‘ì„±ìë„ X ë¹„ë°€ëŒ“ê¸€ë¡œ ì²˜ë¦¬
+				if (userId == null) { // ºñ·Î±×ÀÎ »óÅÂ¸é ºñ¹Ğ ´ñ±Û·Î Ã³¸®
+					vo.setReplytext("ºñ¹Ğ ´ñ±ÛÀÔ´Ï´Ù.");
+				} else { // ·Î±×ÀÎ »óÅÂÀÏ °æ¿ì
+					String writer = vo.getWriter(); // °Ô½Ã¹° ÀÛ¼ºÀÚ ÀúÀå
+					String replyer = vo.getReplyer(); // ´ñ±Û ÀÛ¼ºÀÚ ÀúÀå
+					// ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °Ô½Ã¹°ÀÇ ÀÛ¼ºÀÚX ´ñ±Û ÀÛ¼ºÀÚµµ X ºñ¹Ğ´ñ±Û·Î Ã³¸®
 					if (!userId.equals(writer) && !userId.equals(replyer)) {
-						vo.setReplytext("ë¹„ë°€ ëŒ“ê¸€ì…ë‹ˆë‹¤.");
+						vo.setReplytext("ºñ¹Ğ ´ñ±ÛÀÔ´Ï´Ù.");
 					}
 				}
 			}
@@ -50,25 +50,25 @@ public class ReplyServiceImpl implements ReplyService {
 		return items;
 	}
 
-	// 3. ëŒ“ê¸€ ìƒì„¸ë³´ê¸°
+	// 3. ´ñ±Û »ó¼¼º¸±â
 	@Override
 	public ReplyVO detail(Integer rno) {
 		return replyDao.detail(rno);
 	}
 
-	// 4. ëŒ“ê¸€ ìˆ˜ì •
+	// 4. ´ñ±Û ¼öÁ¤
 	@Override
 	public void update(ReplyVO vo) {
 		replyDao.update(vo);
 	}
 
-	// 5. ëŒ“ê¸€ ì‚­ì œ
+	// 5. ´ñ±Û »èÁ¦
 	@Override
 	public void delete(Integer rno) {
 		replyDao.delete(rno);
 	}
 
-	// 6. ëŒ“ê¸€ ê°¯ìˆ˜
+	// 6. ´ñ±Û °¹¼ö
 	@Override
 	public int count(Integer bno) {
 		return replyDao.count(bno);

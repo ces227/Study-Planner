@@ -40,7 +40,7 @@
 		$("#modifyReply").css("visibility", "hidden");
 	});
 	
-	// 5. s댓글 삭제
+	// 5. 댓글 삭제
 	$("#btnReplyDelete").click(function(){
 		if(confirm("삭제하시겠습니까?")){
 			$.ajax({
@@ -62,7 +62,7 @@
 </head>
 
 <body>
-	댓글 수정<br>
+	댓글 번호 : ${vo.rno}<br>
 	<textarea id="detailReplytext" rows="3" cols="80">${vo.replytext}</textarea>
 	<br><br>
 	<div style="text-align: center;">

@@ -18,13 +18,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 	//@Autowired
 	SqlSession sqlSession;
 
-	// 1. ëŒ“ê¸€ ì…ë ¥
+	// 1. ´ñ±Û ÀÔ·Â
 	@Override
 	public void create(ReplyVO vo) {
 		sqlSession.insert("reply.insertReply", vo);
 	}
 
-	// 2. ëŒ“ê¸€ ëª©ë¡
+	// 2. ´ñ±Û ¸ñ·Ï
 	@Override
 	public List<ReplyVO> list(Integer bno, int start, int end) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -34,25 +34,25 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return sqlSession.selectList("reply.listReply", map);
 	}
 
-	// 3. ëŒ“ê¸€ ìƒì„¸ë³´ê¸°
+	// 3. ´ñ±Û »ó¼¼º¸±â
 	@Override
 	public ReplyVO detail(Integer rno) {
 		return sqlSession.selectOne("reply.detailReply", rno);
 	}
 
-	// 4. ëŒ“ê¸€ ìˆ˜ì •
+	// 4. ´ñ±Û ¼öÁ¤
 	@Override
 	public void update(ReplyVO vo) {
 		sqlSession.update("reply.updateReply", vo);
 	}
 
-	// 5. ëŒ“ê¸€ ì‚­ì œ
+	// 5. ´ñ±Û »èÁ¦
 	@Override
 	public void delete(Integer rno) {
 		sqlSession.delete("reply.deleteReply", rno);
 	}
 
-	// 6. ëŒ“ê¸€ ê°¯ìˆ˜
+	// 6. ´ñ±Û °¹¼ö
 	@Override
 	public int count(Integer bno) {
 		return sqlSession.selectOne("reply.countReply", bno);

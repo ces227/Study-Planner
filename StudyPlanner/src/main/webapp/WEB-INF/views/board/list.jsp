@@ -181,7 +181,16 @@
 			</div>
 			<!-- 페이징  끝-->
 		</div>
-
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<br>
 		<div id="board_write" align="right">
 			<c:if test="${sessionScope.id!=null}">
