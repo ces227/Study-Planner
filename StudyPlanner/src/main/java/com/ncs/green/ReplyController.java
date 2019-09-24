@@ -88,16 +88,18 @@ public class ReplyController {
 		int end = replyPager.getPageEnd();
 		List<ReplyVO> list = replyService.list(bno, start, end, session);
 		// 뷰이름 지정
-		mav.setViewName("board/replyList");
+		mav.setViewName("redirect:board/replyList");
 		// 뷰에 전달할 데이터 지정
 		mav.addObject("list", list);
 		mav.addObject("replyPager", replyPager);
 		// replyList.jsp로 포워딩
+		mav.setViewName("redirect:board/replyList");
+		
 		return mav;
 	}
 
 	// 2_2. 댓글 목록(@RestController방식 : Json으로 데이터를 리턴)
-	@RequestMapping("listJson")
+	@RequestMapping("listJson.do")
 	@ResponseBody // 리턴데이터를 json으로 변환(RestController사용시 @ResponseBody생략가능)
 	public List<ReplyVO> listJson(@RequestParam int bno, @RequestParam(defaultValue = "1") int curPage,
 			HttpSession session) {

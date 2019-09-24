@@ -19,6 +19,11 @@
           maxHeight: null,             // set maximum height of editor
         }); */
 		
+		// ** 게시글 목록으로 이동 - 버튼 클릭시 상세보기화면에 있던 페이지, 검색옵션, 키워드 값을 가지로 목록으로 이동
+	/* 	$("#btnList").click(function(){
+			location.href="http://localhost:9090/green/board/list?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
+		}); */
+		
 		$("#btnSave").click(function(){
 			if(title==""){
 				alert("제목을 입력하세요");

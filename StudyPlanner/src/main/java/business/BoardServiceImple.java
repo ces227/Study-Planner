@@ -1,8 +1,8 @@
 package business;
 
 /**
- * ê²Œì‹œê¸€ ì“°ê¸°ì²˜ë¦¬(íƒœê·¸ë¬¸ì ì²˜ë¦¬, ê³µë°±ë¬¸ì ì²˜ë¦¬, ì¤‘ë°”ê¿ˆ ë¬¸ìì²˜ë¦¬)
- * ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬(ì¼ì • ì‹œê°„ë™ì•ˆ ì¡°íšŒìˆ˜ ì¦ê°€í•˜ì§€ ì•Šë„ë¡ ì²˜ë¦¬)
+ * °Ô½Ã±Û ¾²±âÃ³¸®(ÅÂ±×¹®ÀÚ Ã³¸®, °ø¹é¹®ÀÚ Ã³¸®, Áß¹Ù²Ş ¹®ÀÚÃ³¸®)
+ * °Ô½Ã±Û Á¶È¸¼ö Áõ°¡ Ã³¸®(ÀÏÁ¤ ½Ã°£µ¿¾È Á¶È¸¼ö Áõ°¡ÇÏÁö ¾Êµµ·Ï Ã³¸®)
  * */
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -21,77 +21,77 @@ public class BoardServiceImple implements BoardService {
 	@Autowired
 	BoardDAO boardDao;
 
-	// 01. ê²Œì‹œê¸€ì“°ê¸°
-	@Transactional // íŠ¸ëœì­ì…˜ ì²˜ë¦¬ ë©”ì„œë“œë¡œ ì„¤ì •
+	// 01. °Ô½Ã±Û¾²±â
+	@Transactional // Æ®·£Àè¼Ç Ã³¸® ¸Ş¼­µå·Î ¼³Á¤
 	@Override
 	public void create(BoardVO vo) throws Exception {
 		String title = vo.getTitle();
 		String content = vo.getContent();
 		String writer = vo.getWriter();
-		// *íƒœê·¸ë¬¸ì ì²˜ë¦¬ (< ==> &lt; > ==> &gt;)
-		// replace(A, B) Aë¥¼ Bë¡œ ë³€ê²½
+		// *ÅÂ±×¹®ÀÚ Ã³¸® (< ==> &lt; > ==> &gt;)
+		// replace(A, B) A¸¦ B·Î º¯°æ
 		title = title.replace("<", "&lt;");
 		title = title.replace("<", "&gt;");
 		writer = writer.replace("<", "&lt;");
 		writer = writer.replace("<", "&gt;");
-		// *ê³µë°±ë¬¸ì ì²˜ë¦¬
+		// *°ø¹é¹®ÀÚ Ã³¸®
 		title = title.replace("  ", "&nbsp;&nbsp;");
 		writer = writer.replace("  ", "&nbsp;&nbsp;");
-		// *ì¤„ë°”ê¿ˆ ë¬¸ìì²˜ë¦¬
+		// *ÁÙ¹Ù²Ş ¹®ÀÚÃ³¸®
 		content = content.replace("\n", "<br>");
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setWriter(writer);
-		// ê²Œì‹œë¬¼ ë“±ë¡
+		// °Ô½Ã¹° µî·Ï
 		boardDao.create(vo);
 	}
 
-	// 02. ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°
+	// 02. °Ô½Ã±Û »ó¼¼º¸±â
 	@Override
 	public BoardVO read(int bno) throws Exception {
 		return boardDao.read(bno);
 	}
 
-	// 03. ê²Œì‹œê¸€ ìˆ˜ì •
+	// 03. °Ô½Ã±Û ¼öÁ¤
 	@Transactional
 	@Override
 	public void update(BoardVO vo) throws Exception {
 		boardDao.update(vo);
 	}
 
-	// 04. ê²Œì‹œê¸€ ì‚­ì œ
+	// 04. °Ô½Ã±Û »èÁ¦
 	@Override
 	public void delete(int bno) throws Exception {
 		boardDao.delete(bno);
 	}
 
-	// 05. ê²Œì‹œê¸€ ì „ì²´ ëª©ë¡
+	// 05. °Ô½Ã±Û ÀüÃ¼ ¸ñ·Ï
 	@Override
 	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
 		return boardDao.listAll(start, end, searchOption, keyword);
 	}
 
-	// 6. ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€
+	// 6. °Ô½Ã±Û Á¶È¸¼ö Áõ°¡
 	public int increaseViewcnt(int bno, HttpSession session) throws Exception {
 		long update_time = 0;
-		// ì„¸ì…˜ì— ì €ì¥ëœ ì¡°íšŒì‹œê°„ ê²€ìƒ‰
-		// ìµœì´ˆë¡œ ì¡°íšŒí•  ê²½ìš° ì„¸ì…˜ì— ì €ì¥ëœ ê°’ì´ ì—†ê¸° ë•Œë¬¸ì— ifë¬¸ì€ ì‹¤í–‰ X
+		// ¼¼¼Ç¿¡ ÀúÀåµÈ Á¶È¸½Ã°£ °Ë»ö
+		// ÃÖÃÊ·Î Á¶È¸ÇÒ °æ¿ì ¼¼¼Ç¿¡ ÀúÀåµÈ °ªÀÌ ¾ø±â ¶§¹®¿¡ if¹®Àº ½ÇÇà X
 		if (session.getAttribute("update_time" + bno) != null) {
-			// ì„¸ì…˜ì—ì„œ ì½ì–´ì˜¤ê¸°
+			// ¼¼¼Ç¿¡¼­ ÀĞ¾î¿À±â
 		}
-		// ì‹œìŠ¤í…œì˜ í˜„ì¬ì‹œê°„ì„ current_timeì— ì €ì¥
+		// ½Ã½ºÅÛÀÇ ÇöÀç½Ã°£À» current_time¿¡ ÀúÀå
 		long current_time = System.currentTimeMillis();
-		// ì¼ì •ì‹œê°„ì´ ê²½ê³¼ í›„ ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬ 24*60*60*1000(24ì‹œê°„)
-		// ì‹œìŠ¤í…œí˜„ì¬ì‹œê°„ - ì—´ëŒì‹œê°„ > ì¼ì •ì‹œê°„(ì¡°íšŒìˆ˜ ì¦ê°€ê°€ ê°€ëŠ¥í•˜ë„ë¡ ì§€ì •í•œ ì‹œê°„)
+		// ÀÏÁ¤½Ã°£ÀÌ °æ°ú ÈÄ Á¶È¸¼ö Áõ°¡ Ã³¸® 24*60*60*1000(24½Ã°£)
+		// ½Ã½ºÅÛÇöÀç½Ã°£ - ¿­¶÷½Ã°£ > ÀÏÁ¤½Ã°£(Á¶È¸¼ö Áõ°¡°¡ °¡´ÉÇÏµµ·Ï ÁöÁ¤ÇÑ ½Ã°£)
 		if (current_time - update_time > 5 * 1000) {
 			//boardDao.increaseViewcnt(bno, session);
-			// ì„¸ì…˜ì— ì‹œê°„ì„ ì €ì¥:"update_time_+bnoëŠ” ë‹¤ë¥¸ ë³€ìˆ˜ì™€ ì¤‘ë³µë˜ì§€ì•Šê²Œ ëª…ëª…í•œ ê²ƒ
+			// ¼¼¼Ç¿¡ ½Ã°£À» ÀúÀå:"update_time_+bno´Â ´Ù¸¥ º¯¼ö¿Í Áßº¹µÇÁö¾Ê°Ô ¸í¸íÇÑ °Í
 			session.setAttribute("update_time_" + bno, current_time);
 		}
 		return boardDao.increaseViewcnt(bno, session);
 	}
 
-	// 7. ê²Œì‹œê¸€ ë ˆì½”ë“œ ê°¯ìˆ˜
+	// 7. °Ô½Ã±Û ·¹ÄÚµå °¹¼ö
 	public int countArticle(String searchOption, String keyword) throws Exception {
 		return boardDao.countArticle(searchOption, keyword);
 	}

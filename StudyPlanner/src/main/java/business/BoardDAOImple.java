@@ -12,50 +12,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import vo.BoardVO;
 
-@Repository // í˜„ì¬ í´ë˜ìŠ¤ë¥¼ dao beanìœ¼ë¡œ ë“±ë¡
+@Repository // ÇöÀç Å¬·¡½º¸¦ dao beanÀ¸·Î µî·Ï
 public class BoardDAOImple implements BoardDAO {
 	
 	@Autowired
 	SqlSession SqlSession;
 
-	// 1. ê²Œì‹œê¸€ ì‘ì„±
+	// 1. °Ô½Ã±Û ÀÛ¼º
 	public void create(BoardVO vo) throws Exception {
 		SqlSession.insert("board.insert", vo);
 	}
 
-	// 2. ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°
+	// 2. °Ô½Ã±Û »ó¼¼º¸±â
 	public BoardVO read(int bno) throws Exception {
 		return SqlSession.selectOne("board.view", bno);
 	}
 
-	// 3. ê²Œì‹œê¸€ ìˆ˜ì •
+	// 3. °Ô½Ã±Û ¼öÁ¤
 	public void update(BoardVO vo) throws Exception {
 		SqlSession.selectOne("board.updateArticle", vo);
 	}
 	
-	// 4. ê²Œì‹œê¸€ ì‚­ì œ
+	// 4. °Ô½Ã±Û »èÁ¦
 	public void delete(int bno) throws Exception {
 		SqlSession.delete("board.deleteArticle", bno);
 	}
 
-	// 5. ê²Œì‹œê¸€ ì „ì²´ ëª©ë¡
+	// 5. °Ô½Ã±Û ÀüÃ¼ ¸ñ·Ï
 	public List<BoardVO> listAll(int start, int end,String searchOption, String keyword) throws Exception {
-		// ê²€ìƒ‰ì˜µì…˜, í‚¤ì›Œë“œ ë§µì— ì €ì¥
+		// °Ë»ö¿É¼Ç, Å°¿öµå ¸Ê¿¡ ÀúÀå
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-		// between #{start}, #{end}ì— ì…ë ¥ë  ê°’ì„ ë§µì—
+		// between #{start}, #{end}¿¡ ÀÔ·ÂµÉ °ªÀ» ¸Ê¿¡
 		map.put("start",start);
 		map.put("end",end);
 		return SqlSession.selectList("board.listAll", map);
 	}
 
-	// ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€
+	// °Ô½Ã±Û Á¶È¸¼ö Áõ°¡
 	public int increaseViewcnt(int bno, HttpSession session) throws Exception {
 		return SqlSession.update("board.increaseViewcnt", bno);
 	}
 	
-	// 7. ê²Œì‹œê¸€ ë ˆì½”ë“œ ê°¯ìˆ˜
+	// 7. °Ô½Ã±Û ·¹ÄÚµå °¹¼ö
 	public int countArticle(String searchOption, String keyword) throws Exception{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOption", searchOption);
