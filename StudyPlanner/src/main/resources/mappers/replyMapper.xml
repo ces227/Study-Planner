@@ -25,7 +25,7 @@
 			WHERE
 			  r.replyer = s.id
 			  AND bno = #{bno}
-			ORDER BY rno
+			ORDER BY r.regdate desc, rno desc
 		<include refid="pagingFooter"/>
 	</select>
 	
