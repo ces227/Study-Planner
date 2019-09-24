@@ -13,6 +13,13 @@
 </head>
 <body>
 
+<div id='logout' align="right">
+		${id} 님이 로그인 중입니다
+		<img id="logout" class="logout" name="logout" src="resources/image/logout.jpg" 
+			weight="85px" height="35px" onclick="javascript:location.href='http://localhost:9090/green/logout';">
+		<!-- <a href='logout' style= "text-decorateion:'none' ; " id='logout' class='logout'>로그아웃</a> -->
+</div>
+
 <div id='cssmenu'>
 <ul>
    <li class='active'><a href='#'>Home</a></li>
