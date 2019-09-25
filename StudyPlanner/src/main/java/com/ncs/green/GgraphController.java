@@ -1,6 +1,7 @@
 package com.ncs.green;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,34 @@ public class GgraphController {
 	@Qualifier("ggraph")
 	private GgraphService service;
 
-	@RequestMapping(value="/GgraphMain") //member Detail
-	public ModelAndView CalendarMain(HttpServletRequest request, 
+	@RequestMapping(value="/GgraphMain")
+	public ModelAndView GgraphMain(HttpServletRequest request, 
+			ModelAndView mv, GgraphVO vo) {
+		String id=null;
+		HttpSession session = request.getSession(false);
+		if(session!=null) {
+			id=(String)session.getAttribute("id");
+			if(id!=null) {
+				vo.setGraID(id);
+				String sub = service.selectSubject(vo);
+				if(sub.length() > 2) {
+					sub = sub.substring(1, sub.length()-1);
+					String[] subarr = sub.split(", ");
+					
+					mv.addObject("subarr",subarr);
+				}
+			}else {
+				System.out.println("***** loginID null *****");
+			}
+		}else {
+			System.out.println("***** session null *****");
+		}
+		mv.setViewName("graph/graphselect");
+		return mv;
+	}
+	
+	@RequestMapping(value="/Ggraph") //member Detail
+	public ModelAndView Ggraph(HttpServletRequest request, 
 			ModelAndView mv, GgraphVO vo, ArrayList<GgraphVO> gvo) {
 		String id=null;
 		HttpSession session = request.getSession(false);
@@ -32,19 +59,12 @@ public class GgraphController {
 			id=(String)session.getAttribute("id");
 			if(id!=null) {
 				vo.setGraID(id);
-				/* 
-				gvo=service.selectSubject(vo);
-				ArrayList<String> subjectList = new ArrayList<String>();
-				for (int i = 0; i < gvo.size(); i++) {
-					subjectList.add(gvo.get(i).getExam_subject());
-					System.out.println("subjectList"+i+"="+subjectList.get(i));
-				}
-				mv.addObject("subject", gvo);
-				*/
-				gvo=service.selectList(vo);
-				int size = gvo.size();
-				mv.addObject("size", size);
-				mv.addObject("graphData", gvo);
+				System.out.println("@@@"+vo.getExam_subject());
+				gvo = service.selectgraph(vo);
+				mv.addObject("graphData",gvo);
+				mv.addObject("size",gvo.size());
+				mv.addObject("subname", vo.getExam_subject());
+				
 			}else {
 				System.out.println("***** loginID null *****");
 			}

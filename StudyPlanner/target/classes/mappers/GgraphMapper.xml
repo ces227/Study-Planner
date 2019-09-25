@@ -14,9 +14,9 @@
 	ORDER BY exam_date ASC
 </select>
 
-<select id="selectsubject" resultType="vo.GgraphVO"> <!-- 과목만 select -->
-	SELECT DISTINCT
-	exam_subject
+<select id="selectsubject" resultType="String"> <!-- 과목만 select -->
+	SELECT
+	DISTINCT exam_subject AS exam_subject
 	FROM ggraph 
 	WHERE graID=#{graID}
 </select>
@@ -25,8 +25,8 @@
 	SELECT * FROM ggraph WHERE seq=TO_NUMBER(#{seq})
 </select>
 
-<select id="selectSubject" resultType="vo.GgraphVO"> <!-- 과목/날짜 과거부터 정렬 -->
-	SELECT exam_name, TO_CHAR(exam_date,'YYYY-MM-DD') AS exam_date, exam_grade 
+<select id="selectgraph" resultType="vo.GgraphVO"> <!-- 과목/날짜 과거부터 정렬 -->
+	SELECT exam_name, TO_CHAR(exam_date,'YYYY-MM-DD') AS exam_date, exam_grade, exam_subject
 	FROM ggraph 
 	WHERE exam_subject=#{exam_subject} AND graID=#{graID} 
 	ORDER BY exam_date ASC

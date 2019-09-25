@@ -16,6 +16,8 @@ public interface GgraphService {
 
 	int delete(GgraphVO vo);
 
-	ArrayList<GgraphVO> selectSubject(GgraphVO vo);
+	String selectSubject(GgraphVO vo);
+	
+	ArrayList<GgraphVO>selectgraph(GgraphVO vo);
 
 }

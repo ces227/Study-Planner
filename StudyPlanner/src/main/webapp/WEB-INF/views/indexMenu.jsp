@@ -15,7 +15,6 @@
 
 <div id='cssmenu'>
 <ul>
-   <li class='active'><a href='#'>Home</a></li>
    <li><a href='http://localhost:9090/green/CalendarMain' target="section">캘린더</a></li>
    <li><a href='http://localhost:9090/green/GgraphMain' target="section">그래프</a></li>
    <li><a href='http://localhost:9090/green/studentDetail' target="section">내 정보</a></li>
@@ -28,7 +27,7 @@
 </div>
 <div class=clear_both></div>
 <div class=main>
-	<iframe name=section id=section frameborder="0" width="100%" height="1000px" marginwidth="0" marginheight="0"></iframe>
+	<iframe name=section id=section marginwidth="0" marginheight="0" height="900px" width="100%" frameborder="0"></iframe>
 </div>
 <div class=clear_both></div>
 </body>

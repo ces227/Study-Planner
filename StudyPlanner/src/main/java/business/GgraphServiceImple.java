@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import vo.GgraphVO;
 @Service("ggraph")
 public class GgraphServiceImple implements GgraphService{
 
+	
 	@Autowired
 	private SqlSession dao;
 	private static final String NS="green.mapper.GgraphMapper.";
@@ -20,6 +22,11 @@ public class GgraphServiceImple implements GgraphService{
 	public ArrayList<GgraphVO>selectList(GgraphVO vo){
 		return (ArrayList)dao.selectList(NS+"selectList", vo);
 	}
+	
+	@Override
+	public ArrayList<GgraphVO>selectgraph(GgraphVO vo){
+		return (ArrayList)dao.selectList(NS+"selectgraph", vo);
+	}
 
 	@Override
 	public GgraphVO selectOne(GgraphVO vo) {
@@ -27,8 +34,8 @@ public class GgraphServiceImple implements GgraphService{
 	}
 	
 	@Override
-	public ArrayList<GgraphVO>selectSubject(GgraphVO vo){
-		return (ArrayList)dao.selectList(NS+"selectSubject", vo);
+	public String selectSubject(GgraphVO vo){
+		return dao.selectList(NS+"selectsubject", vo).toString();
 	}
 
 	@Override
