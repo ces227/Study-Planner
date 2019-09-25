@@ -7,9 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
+ -->
 </head>
 <body>
 	<table style="width:700px">
@@ -26,6 +26,8 @@
 					<input type="button" id="btnModify" value="수정" onclick="showReplyModify('${row.rno}')" class="btn btn-info btn-md">
 				</c:if>
 				<hr>
+				<!-- 댓글 수정 영역-->
+				<div id="modifyReply"></div>
 			</td>
 		</tr>
 		</c:forEach>
@@ -63,8 +65,8 @@
 			</td>
 		</tr>
 	</table>
-	
 	<!-- 댓글 수정 영역-->
-	<div id="modifyReply"></div>
+				<div id="modifyReply"></div>
+	
 </body>
 </html>

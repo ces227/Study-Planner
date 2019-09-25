@@ -13,6 +13,9 @@
 <script src='resources/jsLib/fullcalendar.min.js'></script>
 <script src='resources/jsLib/ko.js'></script>
 <script src='resources/jsLib/jquery.bpopup.min.js'></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   
 <script>
 $(document).ready(function() {
 	var test=[];
@@ -144,7 +147,7 @@ body {
 </div> -->
 <div id='calendar'>
 	<div style='float:right'>
-		<button onclick="addSchedule()">일정등록</button>
+		<button onclick="addSchedule()" class="btn btn-info btn-md">일정등록</button>
 	</div>
 </div>
 <div class="box box-success" style="width:500px; display:none; background-color:white" id="winAlert">

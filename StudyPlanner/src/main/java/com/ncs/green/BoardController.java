@@ -25,14 +25,14 @@ import business.BoardService;
 import business.ReplyService;
 import vo.BoardVO;
 
-// 0912 ì¶”ê°€ì‚¬í•­
+// 0912 Ãß°¡»çÇ×
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-	// ì˜ì¡´ ê´€ê³„ ì£¼ì… => BoardServiceImpl ìƒì„±
-	// IoC ì˜ì¡´ê´€ê³„ ì—­ì „
+	// ÀÇÁ¸ °ü°è ÁÖÀÔ => BoardServiceImpl »ı¼º
+	// IoC ÀÇÁ¸°ü°è ¿ªÀü
 
 	@Autowired
 	@Qualifier("boardservice")
@@ -42,82 +42,82 @@ public class BoardController {
 	@Qualifier("replyservice") // @Inject
 	private ReplyService replyservice;
 
-	// 1. ê²Œì‹œê¸€ ëª©ë¡
+	// 1. °Ô½Ã±Û ¸ñ·Ï
 	@RequestMapping(value = "list")
-	// @RequestParam(defaultValue="") =>ê¸°ë³¸ê°’ í• ë‹¹
+	// @RequestParam(defaultValue="") =>±âº»°ª ÇÒ´ç
 	public ModelAndView list(@RequestParam(defaultValue="title") String searchOption, 
 			@RequestParam(defaultValue="") String keyword, 
 			@RequestParam(defaultValue="1") int curPage, BoardVO vo, HttpSession session, HttpServletRequest request) throws Exception {
 		
 		
-		// ë ˆì½”ë“œì˜ ê°¯ìˆ˜ ê³„ì‚°
+		// ·¹ÄÚµåÀÇ °¹¼ö °è»ê
 		int count = boardservice.countArticle(searchOption, keyword);
 		ModelAndView mv = new ModelAndView();
 		//mv.setViewName("board/list");
-		//mv.addObject("list",list); // ë°ì´í„°ë¥¼ ì €ì¥
+		//mv.addObject("list",list); // µ¥ÀÌÅÍ¸¦ ÀúÀå
 		
-		// í˜ì´ì§€ ë‚˜ëˆ„ê¸° ê´€ë ¨ ì²˜ë¦¬
+		// ÆäÀÌÁö ³ª´©±â °ü·Ã Ã³¸®
 		BoardPager boardPager = new BoardPager(count, curPage);
 		int start = boardPager.getPageBegin();
 		int end = boardPager.getPageEnd();
 		
 		List<BoardVO> list = boardservice.listAll(start,end,searchOption, keyword);
 		
-		// ë°ì´í„°ë¥¼ ë§µì— ì €ì¥
+		// µ¥ÀÌÅÍ¸¦ ¸Ê¿¡ ÀúÀå
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("list ëŠ” =>"+list);
+		System.out.println("list ´Â =>"+list);
 		
 		map.put("list", list); // list
-		map.put("count", count); // ë ˆì½”ë“œì˜ ê°¯ìˆ˜
-		map.put("searchOption", searchOption); // ê²€ìƒ‰ ì˜µì…˜
-		map.put("keyword", keyword); // ê²€ìƒ‰ í‚¤ì›Œë“œ
+		map.put("count", count); // ·¹ÄÚµåÀÇ °¹¼ö
+		map.put("searchOption", searchOption); // °Ë»ö ¿É¼Ç
+		map.put("keyword", keyword); // °Ë»ö Å°¿öµå
 		map.put("boardPager",boardPager);
 		
-		mv.addObject("map", map); // ë§µì— ì €ì¥ëœ ë°ì´í„°ë¥¼ mvì— ì €ì¥
-		mv.setViewName("board/list"); // ë·°ë¥¼ list.jspë¡œ ì„¤ì •
+		mv.addObject("map", map); // ¸Ê¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ mv¿¡ ÀúÀå
+		mv.setViewName("board/list"); // ºä¸¦ list.jsp·Î ¼³Á¤
 		
-		return mv; // list.jspë¡œ Listê°€ ì „ë‹¬ëœë‹¤.
+		return mv; // list.jsp·Î List°¡ Àü´ŞµÈ´Ù.
 	}
 
-	// 2_1. ê²Œì‹œê¸€ ì‘ì„±í™”ë©´
+	// 2_1. °Ô½Ã±Û ÀÛ¼ºÈ­¸é
 	@RequestMapping(value = "write", method=RequestMethod.GET)
 	public String write() {
 		return "board/write"; 
 	}
 	
-	// 2_2. ê²Œì‹œê¸€ ì‘ì„±ì²˜ë¦¬
+	// 2_2. °Ô½Ã±Û ÀÛ¼ºÃ³¸®
 	@RequestMapping(value = "insert", method=RequestMethod.POST)
 	public String insert(@ModelAttribute BoardVO vo, HttpSession session) throws Exception {
-		// sessionì— ì €ì¥ëœ userIdë¥¼ writerì— ì €ì¥
+		// session¿¡ ÀúÀåµÈ userId¸¦ writer¿¡ ÀúÀå
 		String writer = (String)session.getAttribute("id");
 		vo.setWriter(writer);
 		boardservice.create(vo);
 		return "redirect:list"; 
 	}
 	
-	// 3. ê²Œì‹œê¸€ ìƒì„¸ë‚´ìš© ì¡°íšŒ, ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬
+	// 3. °Ô½Ã±Û »ó¼¼³»¿ë Á¶È¸, °Ô½Ã±Û Á¶È¸¼ö Áõ°¡ Ã³¸®
 	@RequestMapping(value = "view", method=RequestMethod.GET)
 	public ModelAndView view(@RequestParam int bno, @RequestParam int curPage, @RequestParam String searchOption,
 			@RequestParam String keyword, HttpSession session, ModelAndView mv, HttpServletRequest request, BoardVO vo) throws Exception {
-		// ì¡°íšŒ ìˆ˜ ì¦ê°€ ì²˜ë¦¬
-		// ë³¸ì¸ì˜ ì—´ëŒìˆ˜ëŠ” ë¹¼ê³  ë‹¤ë¥¸ì‚¬ëŒì´ ì—´ëŒì‹œ ì¡°íšŒ ìˆ˜ ì¦ê°€
+		// Á¶È¸ ¼ö Áõ°¡ Ã³¸®
+		// º»ÀÎÀÇ ¿­¶÷¼ö´Â »©°í ´Ù¸¥»ç¶÷ÀÌ ¿­¶÷½Ã Á¶È¸ ¼ö Áõ°¡
 		String loId= null;
 		session = request.getSession(false);
 		if(session!=null) {
 			loId = (String)session.getAttribute("id");
-			//  System.out.println("loId ì •ìƒì…ë ¥ë˜ëŠ”ì§€ test::"+loId);
-			//  System.out.println("vo.getWriterì— ìˆëŠ” ë‚´ìš© ì¶œë ¥ :: "+vo.getWriter());	
+			//  System.out.println("loId Á¤»óÀÔ·ÂµÇ´ÂÁö test::"+loId);
+			//  System.out.println("vo.getWriter¿¡ ÀÖ´Â ³»¿ë Ãâ·Â :: "+vo.getWriter());	
 			if(vo.getWriter() != null && (!vo.getWriter().equals(loId))) {
 				if(boardservice.increaseViewcnt(bno, session) > 0)
-					System.out.println("** Count Up ì„±ê³µ");
+					System.out.println("** Count Up ¼º°ø");
 				else
-					System.out.println("** Count Up ì‹¤íŒ¨");
+					System.out.println("** Count Up ½ÇÆĞ");
 			}
 		}
 		
 		mv.setViewName("board/view");
-		// ë·°ì— ì „ë‹¬í•  ë°ì´í„°
-		// ëŒ“ê¸€ì˜ ìˆ˜ : ëŒ“ê¸€ì´ ì¡´ì¬í•˜ëŠ” ê²Œì‹œë¬¼ì˜ ì‚­ì œì²˜ë¦¬ ë°©ì§€í•˜ê¸° ìœ„í•´
+		// ºä¿¡ Àü´ŞÇÒ µ¥ÀÌÅÍ
+		// ´ñ±ÛÀÇ ¼ö : ´ñ±ÛÀÌ Á¸ÀçÇÏ´Â °Ô½Ã¹°ÀÇ »èÁ¦Ã³¸® ¹æÁöÇÏ±â À§ÇØ
 		mv.addObject("count",replyservice.count(bno));
 		mv.addObject("dto",boardservice.read(bno));
 		mv.addObject("curPage", curPage);
@@ -127,15 +127,15 @@ public class BoardController {
 		return mv; 
 	}
 	
-	// 4. ê²Œì‹œê¸€ ìˆ˜ì •
-	// í¼ì—ì„œ ì…ë ¥í•œ ë‚´ìš©ë“¤ì€ @ModelAttribute BoardVO voë¡œ ì „ë‹¬ë¨
+	// 4. °Ô½Ã±Û ¼öÁ¤
+	// Æû¿¡¼­ ÀÔ·ÂÇÑ ³»¿ëµéÀº @ModelAttribute BoardVO vo·Î Àü´ŞµÊ
 	@RequestMapping(value = "update", method=RequestMethod.POST)
 	public String update(@ModelAttribute BoardVO vo) throws Exception {
 		boardservice.update(vo);
 		return "redirect:list"; 
 	}
 	
-	// 5. ê²Œì‹œê¸€ ì‚­ì œ
+	// 5. °Ô½Ã±Û »èÁ¦
 	@RequestMapping(value = "delete")
 	public String update(@RequestParam int bno) throws Exception {
 		boardservice.delete(bno);

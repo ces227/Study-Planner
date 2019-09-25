@@ -10,8 +10,6 @@ public interface CalendarService {
 
 	CalendarVO selectOne(CalendarVO vo);
 
-	ArrayList<CalendarVO> selectsubject(CalendarVO vo);
-
 	int insert(CalendarVO vo);
 
 	int update(CalendarVO vo);

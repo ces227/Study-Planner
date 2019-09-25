@@ -88,11 +88,13 @@ public class ReplyController {
 		int end = replyPager.getPageEnd();
 		List<ReplyVO> list = replyService.list(bno, start, end, session);
 		// 뷰이름 지정
-		mav.setViewName("board/replyList");
+		mav.setViewName("redirect:board/replyList");
 		// 뷰에 전달할 데이터 지정
 		mav.addObject("list", list);
 		mav.addObject("replyPager", replyPager);
 		// replyList.jsp로 포워딩
+		mav.setViewName("redirect:board/replyList");
+		
 		return mav;
 	}
 

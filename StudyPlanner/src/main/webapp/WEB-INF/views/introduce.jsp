@@ -7,7 +7,25 @@
 <title>** Study Planner의 소개 페이지입니다 **</title>
 </head>
 <body>
-<h5>** Study Planner의 소개 페이지입니다 **</h5>
+<div id="title" align="center"><h1>** Study Planner 만든 사람들**</h1></div>
+<div id="logo" align="center"><img src="resources/image/logo.png" height="300px" width="300px"> </div>
+<div id="people" align="center">
+	채은수 &nbsp;&nbsp;
+	여현엽 &nbsp;&nbsp;
+	김종국 &nbsp;&nbsp;
+	김문선 
+</div>
+<br><br>
+<hr>
+
+
+
+
+
+
+
+
+
 
 <!-- 
 소개 페이지

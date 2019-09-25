@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script>
 	//3. 댓글 수정
 	$("#btnReplyUpdate").click(function(){
@@ -56,14 +58,13 @@
 	});
 </script>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
 	댓글 번호 : ${vo.rno}<br>
-	<textarea id="detailReplytext" rows="5" cols="82">${vo.replytext}</textarea>
+	<textarea id="detailReplytext" rows="3" cols="80">${vo.replytext}</textarea>
+	<br><br>
 	<div style="text-align: center;">
 		<!-- 본인 댓글만 수정, 삭제가 가능하도록 처리s -->
 		<c:if test="${sessionScope.id == vo.replyer}">
