@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -63,4 +63,12 @@ public class BoardDAOImple implements BoardDAO {
 		
 		return SqlSession.selectOne("board.countArticle", map);
 	}
+		
+	// 99. 게시판 이름 남기기
+	public BoardVO readID(String writer) throws Exception{
+	
+		return SqlSession.selectOne("board.readID",writer);
+	}
+	
+	
 }

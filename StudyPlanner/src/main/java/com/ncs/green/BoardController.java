@@ -1,19 +1,21 @@
 package com.ncs.green;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,8 +83,18 @@ public class BoardController {
 
 	// 2_1. 게시글 작성화면
 	@RequestMapping(value = "write", method=RequestMethod.GET)
-	public String write() {
-		return "board/write"; 
+	public ModelAndView write(ModelAndView mv, @ModelAttribute BoardVO vo,Model model,HttpSession session) throws Exception { // String
+
+	
+		String writer=(String)session.getAttribute("id");	
+		vo.setWriter(writer);
+		
+		System.out.println("1111"+writer);
+		mv.setViewName("board/write");
+		mv.addObject("dto",boardservice.readID(writer));
+		System.out.println("dto안에는 뭐?"+boardservice.readID(writer));
+		
+		return mv ; 
 	}
 	
 	// 2_2. 게시글 작성처리

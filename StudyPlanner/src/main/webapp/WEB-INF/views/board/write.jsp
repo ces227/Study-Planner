@@ -94,7 +94,7 @@ label {
 	<form name="form1" method="post" action="insert">
 		<div>
 			<label for="board_username">이름 </label>&nbsp;&nbsp;&nbsp;
-			<input name=writer id="writer" value="${dto.userName}"/>
+			<input name=writer id="writer" value="${dto.userName}" readonly="readonly">
 		</div>
 		<div>
 			<label for="board_title">제목</label>&nbsp;&nbsp;&nbsp;
