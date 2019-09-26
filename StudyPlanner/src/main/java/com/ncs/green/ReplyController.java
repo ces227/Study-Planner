@@ -40,155 +40,156 @@ public class ReplyController {
 	@Autowired
 	ReplyService replyService;
 
-	// 1_1. ëŒ“ê¸€ ì…ë ¥(@Controllerë°©ì‹ìœ¼ë¡œ ëŒ“ê¸€ ì…ë ¥)
+	// 1_1. ´ñ±Û ÀÔ·Â(@Controller¹æ½ÄÀ¸·Î ´ñ±Û ÀÔ·Â)
 	@ResponseBody
 	@RequestMapping("insert")
 	public void insert(@ModelAttribute ReplyVO vo, HttpSession session) {
-		// ì„¸ì…˜ì— ì €ì¥ëœ íšŒì›ì•„ì´ë””ë¥¼ ëŒ“ê¸€ì‘ì„±ìì— ì„¸íŒ…
+		// ¼¼¼Ç¿¡ ÀúÀåµÈ È¸¿ø¾ÆÀÌµğ¸¦ ´ñ±ÛÀÛ¼ºÀÚ¿¡ ¼¼ÆÃ
 		String userId = (String) session.getAttribute("id");
 		vo.setReplyer(userId);
-		// ëŒ“ê¸€ ì…ë ¥ ë©”ì„œë“œ í˜¸ì¶œ
+		// ´ñ±Û ÀÔ·Â ¸Ş¼­µå È£Ãâ
 		replyService.create(vo);
 	}
 
-	// 1_2. ëŒ“ê¸€ì…ë ¥ (@RestControllerë°©ì‹ìœ¼ë¡œ jsonì „ë‹¬í•˜ì—¬ ëŒ“ê¸€ì…ë ¥)
-	// @ResponseEntity : ë°ì´í„° + http status code
-	// @ResponseBody : ê°ì²´ë¥¼ jsonìœ¼ë¡œ (json - String)
-	// @RequestBody : jsonì„ ê°ì²´ë¡œ
+	// 1_2. ´ñ±ÛÀÔ·Â (@RestController¹æ½ÄÀ¸·Î jsonÀü´ŞÇÏ¿© ´ñ±ÛÀÔ·Â)
+	// @ResponseEntity : µ¥ÀÌÅÍ + http status code
+	// @ResponseBody : °´Ã¼¸¦ jsonÀ¸·Î (json - String)
+	// @RequestBody : jsonÀ» °´Ã¼·Î
 	@RequestMapping(value = "insertRest", method = RequestMethod.POST)
 	public ResponseEntity<String> insertRest(@RequestBody ReplyVO vo, HttpSession session) {
 		ResponseEntity<String> entity = null;
 		try {
-			// ì„¸ì…˜ì— ì €ì¥ëœ íšŒì›ì•„ì´ë””ë¥¼ ëŒ“ê¸€ì‘ì„±ìì— ì„¸íŒ…
+			// ¼¼¼Ç¿¡ ÀúÀåµÈ È¸¿ø¾ÆÀÌµğ¸¦ ´ñ±ÛÀÛ¼ºÀÚ¿¡ ¼¼ÆÃ
 			String userId = (String) session.getAttribute("id");
 			vo.setReplyer(userId);
-			// ëŒ“ê¸€ì…ë ¥ ë©”ì„œë“œ í˜¸ì¶œ
+			// ´ñ±ÛÀÔ·Â ¸Ş¼­µå È£Ãâ
 			replyService.create(vo);
-			// ëŒ“ê¸€ì…ë ¥ì´ ì„±ê³µí•˜ë©´ ì„±ê³µë©”ì‹œì§€ ì €ì¥
+			// ´ñ±ÛÀÔ·ÂÀÌ ¼º°øÇÏ¸é ¼º°ø¸Ş½ÃÁö ÀúÀå
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// ëŒ“ê¸€ì…ë ¥ì´ ì‹¤íŒ¨í•˜ë©´ ì‹¤íŒ¨ë©”ì‹œì§€ ì €ì¥
+			// ´ñ±ÛÀÔ·ÂÀÌ ½ÇÆĞÇÏ¸é ½ÇÆĞ¸Ş½ÃÁö ÀúÀå
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		// ì…ë ¥ ì²˜ë¦¬ HTTP ìƒíƒœ ë©”ì‹œì§€ ë¦¬í„´
+		// ÀÔ·Â Ã³¸® HTTP »óÅÂ ¸Ş½ÃÁö ¸®ÅÏ
 		return entity;
 	}
 
-	// 2_1. ëŒ“ê¸€ ëª©ë¡(@Controllerë°©ì‹ : veiw(í™”ë©´)ë¥¼ ë¦¬í„´)
+	// 2_1. ´ñ±Û ¸ñ·Ï(@Controller¹æ½Ä : veiw(È­¸é)¸¦ ¸®ÅÏ)
+	// 0926
 	@RequestMapping("list")
 	public ModelAndView list(@RequestParam int bno, @RequestParam(defaultValue = "1") int curPage, ModelAndView mav,
 			HttpSession session) {
-		// í˜ì´ì§• ì²˜ë¦¬
-		int count = replyService.count(bno); // ëŒ“ê¸€ ê°¯ìˆ˜
+		// ÆäÀÌÂ¡ Ã³¸®
+		int count = replyService.count(bno); // ´ñ±Û °¹¼ö
 		ReplyPager replyPager = new ReplyPager(count, curPage);
-		// í˜„ì¬ í˜ì´ì§€ì˜ í˜ì´ì§• ì‹œì‘ ë²ˆí˜¸
+		// ÇöÀç ÆäÀÌÁöÀÇ ÆäÀÌÂ¡ ½ÃÀÛ ¹øÈ£
 		int start = replyPager.getPageBegin();
-		// í˜„ì¬ í˜ì´ì§€ì˜ í˜ì´ì§• ë ë²ˆí˜¸
+		// ÇöÀç ÆäÀÌÁöÀÇ ÆäÀÌÂ¡ ³¡ ¹øÈ£
 		int end = replyPager.getPageEnd();
 		List<ReplyVO> list = replyService.list(bno, start, end, session);
-		// ë·°ì´ë¦„ ì§€ì •
-		mav.setViewName("redirect:board/replyList");
-		// ë·°ì— ì „ë‹¬í•  ë°ì´í„° ì§€ì •
+		// ºäÀÌ¸§ ÁöÁ¤
+		mav.setViewName("board/replyList");
+		// ºä¿¡ Àü´ŞÇÒ µ¥ÀÌÅÍ ÁöÁ¤
 		mav.addObject("list", list);
 		mav.addObject("replyPager", replyPager);
-		// replyList.jspë¡œ í¬ì›Œë”©
-		mav.setViewName("redirect:board/replyList");
+		// replyList.jsp·Î Æ÷¿öµù
+		
 		
 		return mav;
 	}
 
-	// 2_2. ëŒ“ê¸€ ëª©ë¡(@RestControllerë°©ì‹ : Jsonìœ¼ë¡œ ë°ì´í„°ë¥¼ ë¦¬í„´)
-	@RequestMapping("listJson.do")
-	@ResponseBody // ë¦¬í„´ë°ì´í„°ë¥¼ jsonìœ¼ë¡œ ë³€í™˜(RestControllerì‚¬ìš©ì‹œ @ResponseBodyìƒëµê°€ëŠ¥)
+	// 2_2. ´ñ±Û ¸ñ·Ï(@RestController¹æ½Ä : JsonÀ¸·Î µ¥ÀÌÅÍ¸¦ ¸®ÅÏ)
+	@RequestMapping("listJson")
+	@ResponseBody // ¸®ÅÏµ¥ÀÌÅÍ¸¦ jsonÀ¸·Î º¯È¯(RestController»ç¿ë½Ã @ResponseBody»ı·«°¡´É)
 	public List<ReplyVO> listJson(@RequestParam int bno, @RequestParam(defaultValue = "1") int curPage,
 			HttpSession session) {
-		// í˜ì´ì§• ì²˜ë¦¬
-		int count = replyService.count(bno); // ëŒ“ê¸€ ê°¯ìˆ˜
+		// ÆäÀÌÂ¡ Ã³¸®
+		int count = replyService.count(bno); // ´ñ±Û °¹¼ö
 		ReplyPager pager = new ReplyPager(count, curPage);
-		// í˜„ì¬ í˜ì´ì§€ì˜ í˜ì´ì§• ì‹œì‘ ë²ˆí˜¸
+		// ÇöÀç ÆäÀÌÁöÀÇ ÆäÀÌÂ¡ ½ÃÀÛ ¹øÈ£
 		int start = pager.getPageBegin();
-		// í˜„ì¬ í˜ì´ì§€ì˜ í˜ì´ì§• ë ë²ˆí˜¸
+		// ÇöÀç ÆäÀÌÁöÀÇ ÆäÀÌÂ¡ ³¡ ¹øÈ£
 		int end = pager.getPageEnd();
 		List<ReplyVO> list = replyService.list(bno, start, end, session);
-		// listë¥¼ ë¦¬í„´
+		// list¸¦ ¸®ÅÏ
 		return list;
 	}
 
-	// ** Controller ì¶”ê°€ ì‚¬í•­ - Restë°©ì‹ìœ¼ë¡œ ëŒ“ê¸€ ëª©ë¡, ìˆ˜ì •, ì‚­ì œ ì²˜ë¦¬
+	// ** Controller Ãß°¡ »çÇ× - Rest¹æ½ÄÀ¸·Î ´ñ±Û ¸ñ·Ï, ¼öÁ¤, »èÁ¦ Ã³¸®
 
-	// 2_3. ëŒ“ê¸€ ëª©ë¡(@RestControllerë°©ì‹ : jsonìœ¼ë¡œ ì „ë‹¬í•˜ì—¬ ëª©ë¡ìƒì„±)
-	// /reply/list/1 => 1ë²ˆ ê²Œì‹œë¬¼ì˜ ëŒ“ê¸€ ëª©ë¡ ë¦¬í„´
-	// /reply/list/2 => 2ë²ˆ ê²Œì‹œë¬¼ì˜ ëŒ“ê¸€ ëª©ë¡ ë¦¬í„´
-	// @PathVariable : urlì— ì…ë ¥ë  ë³€ìˆ˜ê°’ ì§€ì •
+	// 2_3. ´ñ±Û ¸ñ·Ï(@RestController¹æ½Ä : jsonÀ¸·Î Àü´ŞÇÏ¿© ¸ñ·Ï»ı¼º)
+	// /reply/list/1 => 1¹ø °Ô½Ã¹°ÀÇ ´ñ±Û ¸ñ·Ï ¸®ÅÏ
+	// /reply/list/2 => 2¹ø °Ô½Ã¹°ÀÇ ´ñ±Û ¸ñ·Ï ¸®ÅÏ
+	// @PathVariable : url¿¡ ÀÔ·ÂµÉ º¯¼ö°ª ÁöÁ¤
 	@RequestMapping(value = "/list/{bno}/{curPage}", method = RequestMethod.GET)
 	public ModelAndView replyList(@PathVariable("bno") int bno, @PathVariable int curPage, ModelAndView mav,
 			HttpSession session) {
-		// í˜ì´ì§• ì²˜ë¦¬
-		int count = replyService.count(bno); // ëŒ“ê¸€ ê°¯ìˆ˜
+		// ÆäÀÌÂ¡ Ã³¸®
+		int count = replyService.count(bno); // ´ñ±Û °¹¼ö
 		ReplyPager replyPager = new ReplyPager(count, curPage);
-		// í˜„ì¬ í˜ì´ì§€ì˜ í˜ì´ì§• ì‹œì‘ ë²ˆí˜¸
+		// ÇöÀç ÆäÀÌÁöÀÇ ÆäÀÌÂ¡ ½ÃÀÛ ¹øÈ£
 		int start = replyPager.getPageBegin();
-		// í˜„ì¬ í˜ì´ì§€ì˜ í˜ì´ì§• ë ë²ˆí˜¸
+		// ÇöÀç ÆäÀÌÁöÀÇ ÆäÀÌÂ¡ ³¡ ¹øÈ£
 		int end = replyPager.getPageEnd();
 		List<ReplyVO> list = replyService.list(bno, start, end, session);
-		// ë·°ì´ë¦„ ì§€ì •
+		// ºäÀÌ¸§ ÁöÁ¤
 		mav.setViewName("board/replyList");
-		// ë·°ì— ì „ë‹¬í•  ë°ì´í„° ì§€ì •
+		// ºä¿¡ Àü´ŞÇÒ µ¥ÀÌÅÍ ÁöÁ¤
 		mav.addObject("list", list);
 		mav.addObject("replyPager", replyPager);
-		// replyList.jspë¡œ í¬ì›Œë”©
+		// replyList.jsp·Î Æ÷¿öµù
 		return mav;
 	}
 
-	// 3. ëŒ“ê¸€ ìƒì„¸ ë³´ê¸°
-	// /reply/detail/1 => 1ë²ˆ ëŒ“ê¸€ì˜ ìƒì„¸í™”ë©´ ë¦¬í„´
-	// /reply/detail/2 => 2ë²ˆ ëŒ“ê¸€ì˜ ìƒì„¸í™”ë©´ ë¦¬í„´
-	// @PathVariable : urlì— ì…ë ¥ë  ë³€ìˆ˜ê°’ ì§€ì •
+	// 3. ´ñ±Û »ó¼¼ º¸±â
+	// /reply/detail/1 => 1¹ø ´ñ±ÛÀÇ »ó¼¼È­¸é ¸®ÅÏ
+	// /reply/detail/2 => 2¹ø ´ñ±ÛÀÇ »ó¼¼È­¸é ¸®ÅÏ
+	// @PathVariable : url¿¡ ÀÔ·ÂµÉ º¯¼ö°ª ÁöÁ¤
 	@RequestMapping(value = "/detail/{rno}", method = RequestMethod.GET)
 	public ModelAndView replyDetail(@PathVariable("rno") Integer rno, ModelAndView mav) {
 		ReplyVO vo = replyService.detail(rno);
-		// ë·°ì´ë¦„ ì§€ì •
+		// ºäÀÌ¸§ ÁöÁ¤
 		mav.setViewName("board/replyDetail");
-		// ë·°ì— ì „ë‹¬í•  ë°ì´í„° ì§€ì •
+		// ºä¿¡ Àü´ŞÇÒ µ¥ÀÌÅÍ ÁöÁ¤
 		mav.addObject("vo", vo);
-		// replyDetail.jspë¡œ í¬ì›Œë”©
+		// replyDetail.jsp·Î Æ÷¿öµù
 		return mav;
 	}
 
-	// 4. ëŒ“ê¸€ ìˆ˜ì • ì²˜ë¦¬ - PUT:ì „ì²´ ìˆ˜ì •, PATCH:ì¼ë¶€ìˆ˜ì •
-	// RequestMethodë¥¼ ì—¬ëŸ¬ ë°©ì‹ìœ¼ë¡œ ì„¤ì •í•  ê²½ìš° {}ì•ˆì— ì‘ì„±
+	// 4. ´ñ±Û ¼öÁ¤ Ã³¸® - PUT:ÀüÃ¼ ¼öÁ¤, PATCH:ÀÏºÎ¼öÁ¤
+	// RequestMethod¸¦ ¿©·¯ ¹æ½ÄÀ¸·Î ¼³Á¤ÇÒ °æ¿ì {}¾È¿¡ ÀÛ¼º
 	@RequestMapping(value = "/update/{rno}", method = { RequestMethod.PUT, RequestMethod.PATCH })
 	public ResponseEntity<String> replyUpdate(@PathVariable("rno") Integer rno, @RequestBody ReplyVO vo) {
 		ResponseEntity<String> entity = null;
 		try {
 			vo.setRno(rno);
 			replyService.update(vo);
-			// ëŒ“ê¸€ ìˆ˜ì •ì´ ì„±ê³µí•˜ë©´ ì„±ê³µ ìƒíƒœë©”ì‹œì§€ ì €ì¥
+			// ´ñ±Û ¼öÁ¤ÀÌ ¼º°øÇÏ¸é ¼º°ø »óÅÂ¸Ş½ÃÁö ÀúÀå
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// ëŒ“ê¸€ ìˆ˜ì •ì´ ì‹¤íŒ¨í•˜ë©´ ì‹¤íŒ¨ ìƒíƒœë©”ì‹œì§€ ì €ì¥
+			// ´ñ±Û ¼öÁ¤ÀÌ ½ÇÆĞÇÏ¸é ½ÇÆĞ »óÅÂ¸Ş½ÃÁö ÀúÀå
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		// ìˆ˜ì • ì²˜ë¦¬ HTTP ìƒíƒœ ë©”ì‹œì§€ ë¦¬í„´
+		// ¼öÁ¤ Ã³¸® HTTP »óÅÂ ¸Ş½ÃÁö ¸®ÅÏ
 		return entity;
 	}
 
-	// 5. ëŒ“ê¸€ ì‚­ì œì²˜ë¦¬
+	// 5. ´ñ±Û »èÁ¦Ã³¸®
 	@RequestMapping(value = "/delete/{rno}")
 	public ResponseEntity<String> replyDelete(@PathVariable("rno") Integer rno) {
 		ResponseEntity<String> entity = null;
 		try {
 			replyService.delete(rno);
-			// ëŒ“ê¸€ ì‚­ì œê°€ ì„±ê³µí•˜ë©´ ì„±ê³µ ìƒíƒœë©”ì‹œì§€ ì €ì¥
+			// ´ñ±Û »èÁ¦°¡ ¼º°øÇÏ¸é ¼º°ø »óÅÂ¸Ş½ÃÁö ÀúÀå
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// ëŒ“ê¸€ ì‚­ì œê°€ ì‹¤íŒ¨í•˜ë©´ ì‹¤íŒ¨ ìƒíƒœë©”ì‹œì§€ ì €ì¥
+			// ´ñ±Û »èÁ¦°¡ ½ÇÆĞÇÏ¸é ½ÇÆĞ »óÅÂ¸Ş½ÃÁö ÀúÀå
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		// ì‚­ì œ ì²˜ë¦¬ HTTP ìƒíƒœ ë©”ì‹œì§€ ë¦¬í„´
+		// »èÁ¦ Ã³¸® HTTP »óÅÂ ¸Ş½ÃÁö ¸®ÅÏ
 		return entity;
 	}
 }

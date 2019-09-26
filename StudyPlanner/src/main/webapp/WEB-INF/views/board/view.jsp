@@ -11,6 +11,7 @@
 <script>
 $(document).ready(function(){
 	
+	
 	/* --------------- 게시글 관련 --------------- */
 	// 1. 게시글 수정
 	$("#btnUpdete").click(function(){
@@ -54,6 +55,11 @@ $(document).ready(function(){
 		location.href="http://localhost:9090/green/board/list?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
 	});
 	
+	
+	// ㅋㅋㅋㅋ댓글목록 바로 보여지게 하는거를...ㅋㅋㅋㅋ경로문제로 인식헤서..;;;;;;//나는 바보입니다..ㅋㅋㅋ
+	listReplyRest("1");
+	
+	
 		
 	/* --------------- 댓글 관련---------------- */
 	// 1. 댓글 입력-------------------------------
@@ -61,8 +67,6 @@ $(document).ready(function(){
 		replyJson(); // json 형식으로 입력
 	});
 	
-	// 2. 댓글 목록
-	listReply("1"); // 댓글 목록 불러오기
 
 	
 });
@@ -98,6 +102,7 @@ function replyJson(){
 			listReplyRest("1"); // Rest 방식
 		}
 	});
+	
 }
 
 // 2_2. 댓글 목록 - 날짜 형식 변환 함수 작성
@@ -124,6 +129,23 @@ function listReplyRest(num){
 		}
 	});
 }	
+
+
+// listReplyRest22
+function listReplyRest2(num){
+	$.ajax({
+		type: "get",
+		url: "http://localhost:9090/green/reply/list/${dto.bno}/"+num,
+		success: function(result){
+		// responseText가 result에 저장됨.
+			$("#listReply").html(result);
+		}
+	});
+}
+
+
+
+
 
 // 댓글 수정화면 생성 함수
 function showReplyModify(rno){

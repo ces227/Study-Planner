@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import business.BoardPager;
+import business.ReplyPager;
 import business.BoardService;
 import business.ReplyService;
 import vo.BoardVO;
@@ -101,16 +102,22 @@ public class BoardController {
 	@RequestMapping(value = "insert", method=RequestMethod.POST)
 	public String insert(@ModelAttribute BoardVO vo, HttpSession session) throws Exception {
 		// session에 저장된 userId를 writer에 저장
-		String writer = (String)session.getAttribute("id");
-		vo.setWriter(writer);
+		//String writer = (String)session.getAttribute("id");
+		
+		//vo.setWriter(writer);
 		boardservice.create(vo);
+		
+		System.out.println("vo를 출력합니당~!!  "+vo );
+	
 		return "redirect:list"; 
 	}
 	
 	// 3. 게시글 상세내용 조회, 게시글 조회수 증가 처리
 	@RequestMapping(value = "view", method=RequestMethod.GET)
 	public ModelAndView view(@RequestParam int bno, @RequestParam int curPage, @RequestParam String searchOption,
-			@RequestParam String keyword, HttpSession session, ModelAndView mv, HttpServletRequest request, BoardVO vo) throws Exception {
+			@RequestParam String keyword, HttpSession session, ModelAndView mv, HttpServletRequest request, BoardVO vo
+		
+			) throws Exception {
 		// 조회 수 증가 처리
 		// 본인의 열람수는 빼고 다른사람이 열람시 조회 수 증가
 		String loId= null;
@@ -126,12 +133,18 @@ public class BoardController {
 					System.out.println("** Count Up 실패");
 			}
 		}
+		int count = replyservice.count(bno); // 댓글 갯수
+		ReplyPager replyPager = new ReplyPager(count,curPage);
+		int start = replyPager.getPageBegin();
+		// 현재 페이지의 페이징 끝 번호
+		int end = replyPager.getPageEnd();
 		
 		mv.setViewName("board/view");
 		// 뷰에 전달할 데이터
 		// 댓글의 수 : 댓글이 존재하는 게시물의 삭제처리 방지하기 위해
 		mv.addObject("count",replyservice.count(bno));
 		mv.addObject("dto",boardservice.read(bno));
+		mv.addObject("replylist",replyservice.list(bno, start, end, session));
 		mv.addObject("curPage", curPage);
 		mv.addObject("searchOption", searchOption);
 		mv.addObject("keyword",keyword);
