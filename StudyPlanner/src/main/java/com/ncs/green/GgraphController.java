@@ -135,26 +135,28 @@ public class GgraphController {
 			id=(String)session.getAttribute("id");
 		}
 		vo.setGraID(id);
-		String[] arrSeq=map.get("ggraphVO").getSeq().split(",");
+		String[] arrSeq;
 		String[] arrName=map.get("ggraphVO").getExam_name().split(",");
 		String[] arrDate=map.get("ggraphVO").getExam_date().split(",");
 		String[] arrsubject=map.get("ggraphVO").getExam_subject().split(",");
 		String[] arrGrade=map.get("ggraphVO").getExam_grade().split(",");
-
-		for (int i = 0; i < arrSeq.length; i++) {
-			vo.setSeq(arrSeq[i]);
-			vo.setExam_name(arrName[i]);
-			vo.setExam_date(arrDate[i]);
-			vo.setExam_subject(arrsubject[i]);
-			vo.setExam_grade(arrGrade[i]);
-			System.out.println(vo.toString());
-			cnt=service.update(vo);
-			if (cnt>0) {
-				System.out.println(i+"***성공***");
-			} else {
-				System.out.println(i+"***실패***");
+	
+		if(map.get("ggraphVO").getSeq()!=null) { //데이터가 이미 있는 유저
+			arrSeq=map.get("ggraphVO").getSeq().split(",");
+			for (int i = 0; i < arrSeq.length; i++) {
+				vo.setSeq(arrSeq[i]);
+				vo.setExam_name(arrName[i]);
+				vo.setExam_date(arrDate[i]);
+				vo.setExam_subject(arrsubject[i]);
+				vo.setExam_grade(arrGrade[i]);
+				System.out.println(vo.toString());
+				cnt=service.update(vo);
+				if (cnt>0) {
+					System.out.println(i+"***update성공***");
+				} else {
+					System.out.println(i+"***실패***");
+				}
 			}
-		}
 		for (int i=arrSeq.length ; i< arrName.length; i++) {
 			vo.setExam_name(arrName[i]);
 			vo.setExam_date(arrDate[i]);
@@ -163,9 +165,24 @@ public class GgraphController {
 			System.out.println(vo.toString());
 			cnt=service.insert(vo);
 			if (cnt>0) {
-				System.out.println(i+"***성공***");
+				System.out.println(i+"***insert성공***");
 			} else {
 				System.out.println(i+"***실패***");
+			}
+		}
+		} else { //데이터가 없고 처음 입력하는 유저
+			for (int i=0 ; i< arrName.length; i++) {
+				vo.setExam_name(arrName[i]);
+				vo.setExam_date(arrDate[i]);
+				vo.setExam_subject(arrsubject[i]);
+				vo.setExam_grade(arrGrade[i]);
+				System.out.println(vo.toString());
+				cnt=service.insert(vo);
+				if (cnt>0) {
+					System.out.println(i+"***성공***");
+				} else {
+					System.out.println(i+"***실패***");
+				}
 			}
 		}
 

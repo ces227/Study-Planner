@@ -11,9 +11,27 @@
 <script src="resources/jsLib/GgraphContol.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$.fn.serializeObject = function() {
 
-<script>
-$(function() { 
+		  var result = {}
+		  var extend = function(i, element) {
+		    var node = result[element.name]
+		    if ("undefined" !== typeof node && node !== null) {
+		      if ($.isArray(node)) {
+		        node.push(element.value)
+		      } else {
+		        result[element.name] = [node, element.value]
+		      }
+		    } else {
+		      result[element.name] = element.value
+		    }
+		  }
+
+		  $.each(this.serializeArray(), extend)
+		  return result
+		}
 	$("#add").click(function () { 
 
 		var row = '<tr><td></td><td><input type="date" name="exam_date" class="form-control"></td>'+
@@ -33,10 +51,26 @@ $(function() {
         trHtml.remove(); //tr 테그 삭제
          
     });
-for (var i=0 ; i<$('#addTable tr').length ; i++){	
 	
-	$("#del"+i).on("click",function(){
-	if(!confirm("삭제하시겠습니까?"+"#seq"+i)){
+}); //$(function()의 끝
+
+function submitForm() {
+	var formData = $("#Ggraphform").serialize();
+	
+	$.ajax({
+		type: 'POST',
+		url: "Ggraphupdate",
+		data: formData,
+		success: function (result) {
+			alert('정상 처리되었습니다.');
+			location.href = 'redirect:/GgraphDetail';
+		}
+	}) //ajax 끝	
+} //함수 끝
+
+function deletedata(i) {
+	
+	if(!confirm("삭제하시겠습니까?"+$("#seq"+i).val)){
 		return false;
 	}
 	var trHtml = $(this).parent().parent();
@@ -51,12 +85,13 @@ for (var i=0 ; i<$('#addTable tr').length ; i++){
 			alert('정상 처리되었습니다.');
 			location.href = 'redirect:/GgraphDetail';
 		}
-	})
-});
-}
-});
-</script>
+	}) //ajax끝
+	
+	}//deletedata의 끝
 
+	
+
+</script>
 </head>
 <body>
 <header>
@@ -96,7 +131,7 @@ for (var i=0 ; i<$('#addTable tr').length ; i++){
 <input type="text" name="exam_grade" value="${score.exam_grade}" class="form-control" width="20px">
 </td>
 <td>
-<button class="btn btn-default" id="del${vs.index}">삭제</button>
+<button class="btn btn-default" id="del${vs.index}" onclick="deletedata(${vs.index});">삭제</button>
 </td>
 </tr>
 </c:forEach>
