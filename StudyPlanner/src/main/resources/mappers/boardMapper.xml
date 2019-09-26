@@ -128,11 +128,10 @@
 		SELECT 
 			distinct( s.name) AS userName
 		FROM 
-			student s, tbl_board t
+			student s
 		WHERE 
-			s.id = t.writer
-		  AND
-			s.id  = #{writer}	
+			s.id = #{writer}
+		  	
 			
 	</select>
 	
