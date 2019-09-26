@@ -95,4 +95,9 @@ public class BoardServiceImple implements BoardService {
 	public int countArticle(String searchOption, String keyword) throws Exception {
 		return boardDao.countArticle(searchOption, keyword);
 	}
+	
+	public BoardVO readID(String writer) throws Exception{ //writer
+		return boardDao.readID(writer);
+	}
+	
 }

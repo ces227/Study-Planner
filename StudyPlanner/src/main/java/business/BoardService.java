@@ -20,4 +20,7 @@ public interface BoardService {
 	public int increaseViewcnt(int bno, HttpSession session) throws Exception;
 	// 7. 게시글 레코드 갯수 메서드 추가
 	public int countArticle(String searchOption, String keyword) throws Exception;
+	
+	// 99.
+	public BoardVO readID(String writer) throws Exception;
 }
