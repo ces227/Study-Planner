@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>계정찾기 실패!</title>
 </head>
 <body>
-비밀번호를 찾을 입력한 계정이 없습니다.
-다시 이메일계정(아이디를 입력해주세요.)
+<h3 class="text-center text-info">
+	계정찾기 실패! 
+</h3><br>
+<input type="button" class="btn btn-info btn-md" onclick="location.href='termsf'" value="회원가입 하러 가기">
 </body>
 </html>

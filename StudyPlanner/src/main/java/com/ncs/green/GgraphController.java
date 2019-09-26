@@ -59,7 +59,6 @@ public class GgraphController {
 			id=(String)session.getAttribute("id");
 			if(id!=null) {
 				vo.setGraID(id);
-				System.out.println("@@@"+vo.getExam_subject());
 				gvo = service.selectgraph(vo);
 				mv.addObject("graphData",gvo);
 				mv.addObject("size",gvo.size());
@@ -149,7 +148,6 @@ public class GgraphController {
 				vo.setExam_date(arrDate[i]);
 				vo.setExam_subject(arrsubject[i]);
 				vo.setExam_grade(arrGrade[i]);
-				System.out.println(vo.toString());
 				cnt=service.update(vo);
 				if (cnt>0) {
 					System.out.println(i+"***update성공***");
@@ -162,7 +160,6 @@ public class GgraphController {
 			vo.setExam_date(arrDate[i]);
 			vo.setExam_subject(arrsubject[i]);
 			vo.setExam_grade(arrGrade[i]);
-			System.out.println(vo.toString());
 			cnt=service.insert(vo);
 			if (cnt>0) {
 				System.out.println(i+"***insert성공***");

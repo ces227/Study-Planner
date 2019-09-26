@@ -30,8 +30,11 @@ public class LoginController {
 	// 로그인
 	@RequestMapping(value = "/login")
 	public ModelAndView mlogin(HttpServletRequest request, ModelAndView mv, StudentVO vo) {
+		//안쓰는것같아서 일단 주석처리
+		/*
 		String id = vo.getId();
 		String password = vo.getPassword();
+		 */
 
 		HttpSession session = request.getSession();
 
